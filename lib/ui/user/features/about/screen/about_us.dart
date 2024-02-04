@@ -35,6 +35,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
             return IconButton(
               icon: Icon(
                 isDrawerOpen ? Icons.close : Icons.menu,
+                color: Colors.white,
               ),
               onPressed: () {
                 setState(() {
@@ -52,9 +53,12 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
         actions: const [
           Row(
             children: [
-              Text('MOHAMMED'),
+              Text('MOHAMMED', style: TextStyle(color: Colors.white)),
               Gap(5),
-              Icon(Icons.person_pin),
+              Icon(
+                Icons.person_pin,
+                color: Colors.white,
+              ),
               Gap(5),
             ],
           )
@@ -68,7 +72,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Gap(24),
+                  const Gap(15),
                   RichText(
                     text: TextSpan(
                       text: 'WELCOME TO',
@@ -89,7 +93,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  const Gap(24),
+                  const Gap(15),
                   const Image(
                     image: AssetImage(
                         Assets.imagesKrakenimagesY5bvRlcCx8kUnsplash),
@@ -98,14 +102,14 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                       textAlign: TextAlign.center,
                       style: TextStyle(height: 1.9),
                       'WE RE A PASSIONATE AND DEDICATED TEAM WORKING RELENTLESSLY TO MAKE APOSITIVE IMPACT IN THE WORLD. OURMISSION IS TO UPLIFT COMMUNITIE,PROVIDE ESSENTIAL RESOURCES , ANDPROMOTE EQUALITY FOR ALL. TOGETHERWE CAN CREATE POSITIVE CHANGE BYSUPPORTING THOSE IN NEED'),
-                  const Gap(44.5),
+                  const Gap(17.5),
                   const Divider(
                     color: Colors.black,
                     thickness: 2,
                     indent: 140,
                     endIndent: 140,
                   ),
-                  const Gap(24),
+                  const Gap(12),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -133,7 +137,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                       ),
                     ],
                   ),
-                  const Gap(42),
+                  const Gap(20),
                   Container(
                     height: 50,
                     width: double.infinity,

@@ -205,7 +205,8 @@ class RegisterScreenBody extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            child: const Text('SIGN UP'),
+                            child: const Text('SIGN UP',
+                                style: TextStyle(color: Colors.white)),
                           ),
                         ),
                         customTextNextToTextButton(

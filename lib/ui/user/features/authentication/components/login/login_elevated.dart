@@ -21,7 +21,7 @@ class LoginElevated extends StatelessWidget {
           ),
         ),
       ),
-      child: const Text('LOGIN'),
+      child: const Text('LOGIN', style: TextStyle(color: Colors.white)),
     );
   }
 }

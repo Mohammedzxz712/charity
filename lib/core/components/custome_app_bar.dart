@@ -39,6 +39,7 @@ class _CustomMainAppBarState extends State<CustomMainAppBar>
       leading: IconButton(
         icon: Icon(
           widget.isDrawerOpen ? Icons.close : Icons.menu,
+          color: Colors.white,
         ),
         onPressed: () {
           widget.onDrawerIconTap();
@@ -49,9 +50,12 @@ class _CustomMainAppBarState extends State<CustomMainAppBar>
           onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
           child: const Row(
             children: [
-              Text('MOHAMMED'),
+              Text('MOHAMMED', style: TextStyle(color: Colors.white)),
               Gap(5),
-              Icon(Icons.person_pin),
+              Icon(
+                Icons.person_pin,
+                color: Colors.white,
+              ),
               Gap(5),
             ],
           ),
