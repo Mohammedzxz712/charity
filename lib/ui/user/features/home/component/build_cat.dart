@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../config/routes/router.dart';
+import '../../../../../config/routes/app_router.dart';
+import '../../../../../config/routes/routes.dart';
 
 class BuildCategory extends StatelessWidget {
   String imageAsset;
