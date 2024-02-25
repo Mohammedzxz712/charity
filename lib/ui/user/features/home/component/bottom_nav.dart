@@ -1,5 +1,7 @@
-import 'package:charity/config/routes/router.dart';
+import 'package:charity/config/routes/app_router.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../config/routes/routes.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({super.key});
