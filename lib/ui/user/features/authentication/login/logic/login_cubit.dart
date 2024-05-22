@@ -1,11 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:charity/core/cache/cache_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-
-import '../../../../../../core/methods/get_current_location.dart';
-import '../data/model/user_model_firebase.dart';
+import '../../../../../../core/api/api_constant.dart';
+import '../../../../../../core/api/dio_helper.dart';
+import '../../../ediet_profile/data/model/get_profile.dart';
+import '../data/model/user_login_model.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -17,17 +17,37 @@ class LoginCubit extends Cubit<LoginState> {
 
   bool isObscureText = true;
 
+  final TextEditingController otpController = TextEditingController();
+
   var passController = TextEditingController();
+
+  LoginModel? loginModel;
 
   void userLogin({
     required String email,
     required String password,
   }) {
     emit(LoadingState());
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password)
-        .then((value) {
-      print(value.user?.email);
+    DioHelper.postData(
+      url: ApiConstant.login,
+      data: {'email': email, 'password': password},
+    ).then((value) {
+      loginModel = LoginModel.fromJson(value?.data);
+      if (loginModel?.token != null) {
+        CacheHelper.saveData(
+          key: 'token',
+          value: 'Bearer ${value?.data['token']}',
+        );
+        CacheHelper.saveData(
+          key: 'id',
+          value: value?.data['id'],
+        );
+      }
+      ApiConstant.token = 'Bearer ${loginModel?.token}';
+      ApiConstant.id = loginModel?.id;
+
+      print(ApiConstant.token);
+      print(CacheHelper.getBool(key: 'token'));
       emit(LoginSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -35,54 +55,32 @@ class LoginCubit extends Cubit<LoginState> {
     });
   }
 
-  void userRegister({
+  void forgetPassword({
     required String email,
-    required String password,
-    required String name,
-    required String phone,
   }) {
     emit(LoadingState());
-    FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    )
+    DioHelper.postData(url: ApiConstant.forgetPassword, data: {'email': email})
         .then((value) {
-      userCreate(
-          email: email,
-          uId: value.user!.uid,
-          name: name,
-          phone: phone,
-          isEmailVerified: false);
+      print(value);
+      emit(ForgetSuccessState());
     }).catchError((error) {
       print(error.toString());
       emit(FailureState(error: error.toString()));
     });
   }
 
-  void userCreate({
+  void resetPassword({
     required String email,
-    required String uId,
-    required String name,
-    required String phone,
-    required bool isEmailVerified,
+    required String password,
+    required String otp,
   }) {
-    UserModelFire model = UserModelFire(
-      name: name,
-      email: email,
-      uId: uId,
-      phone: phone,
-      isEmailVerified: false,
-    );
-
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uId)
-        .set(
-          model.toMap(),
-        )
-        .then((value) {
-      emit(CreateUserSuccessState());
+    emit(LoadingState());
+    DioHelper.postData(
+        token: ApiConstant.token ?? "",
+        url: ApiConstant.reset,
+        data: {'email': email, 'password': password, 'otp': otp}).then((value) {
+      print(value);
+      emit(ResetSuccessState());
     }).catchError((error) {
       print(error.toString());
       emit(FailureState(error: error.toString()));

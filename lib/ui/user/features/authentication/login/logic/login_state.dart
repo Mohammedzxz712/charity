@@ -15,6 +15,6 @@ class FailureState extends LoginState {
 
 class LoginSuccessState extends LoginState {}
 
-class CreateUserSuccessState extends LoginState {}
+class ForgetSuccessState extends LoginState {}
 
-class RegisterSuccessState extends LoginState {}
+class ResetSuccessState extends LoginState {}

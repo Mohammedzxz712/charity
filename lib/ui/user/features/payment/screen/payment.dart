@@ -91,7 +91,8 @@ Future<void> _pay(int amount) async {
   PaymobManager().getPaymentKey(amount, "EGP").then((String paymentKey) {
     launchUrl(
       Uri.parse(
-          "https://accept.paymob.com/api/acceptance/iframes/821551?payment_token=$paymentKey"),
+          "https://accept.paymob.com/api/acceptance/iframes/847996?payment_token=$paymentKey"),
+      //https://accept.paymob.com/api/acceptance/iframes/847996?payment_token={payment_key_obtained_previously}
     );
   });
 }

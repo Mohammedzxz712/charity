@@ -1,0 +1,5 @@
+abstract class PayMopKey {
+  static const String apiKey =
+      "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RjM09ETTRMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuTTV4SVlLTXY5ZktOYUdLaGpibi1Wb1J5RzVGVFgtaUZwTjVORHRRMVRoMTZwSF95SmstTGZHZmd5UEpYbHRzanZuS1ZhRmZGWjZRc3RiLVdQM3NwSmc=";
+  static const String integrateId = "4580986";
+}
