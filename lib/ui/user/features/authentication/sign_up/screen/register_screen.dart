@@ -7,7 +7,7 @@ import '../logic/sign_up_cubit.dart';
 class RegisterScreen extends StatelessWidget {
   static const String routeName = 'reg';
 
-  const RegisterScreen({super.key});
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -62,6 +62,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
         children: [
           SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const WelcomeAndImageAndTextAndDivider(),
                 const SocialRow(),

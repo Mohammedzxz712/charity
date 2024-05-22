@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:charity/config/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../data/model/category_item_model.dart';
@@ -23,11 +25,20 @@ class CategoryItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 55,
-              child: SvgPicture.asset(
-                categoryItemModel.image,
+            ClipOval(
+              child: CachedNetworkImage(
+                imageUrl: categoryItemModel.image,
+                fit: BoxFit.fill,
+                width: 125.0, // radius * 2
+                height: 125.0, // radius * 2
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                  child: CircularProgressIndicator(
+                    value: downloadProgress.progress,
+                    color: ColorsManager.mainColor,
+                  ),
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
             Text(

@@ -1,5 +1,7 @@
+import 'package:charity/core/helpers/exetinsions.dart';
 import 'package:charity/generated/assets.dart';
 import 'package:charity/ui/user/features/authentication/login/logic/login_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +16,8 @@ import '../../../../../../core/widgets/app_text_form_field.dart';
 import '../../../../../../core/widgets/build_rich_text.dart';
 import '../../../../../../core/widgets/build_text_next_to_text_button.dart';
 import '../../../../../../core/widgets/fun_toast.dart';
+import '../../../../../../core/widgets/progress_indector.dart';
+import '../../complete_signup/screen/complete_signup.dart';
 import '../logic/sign_up_cubit.dart';
 
 class RegisterScreenBody extends StatefulWidget {
@@ -28,9 +32,21 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpCubit, SignUpState>(
       listener: (context, state) {
-        if (state is CreateUserSuccessState) {
-          Navigator.pushNamed(context, AppRoutes.home);
+        if (state is LoadingSignUpState) {
+          showDialog(
+            context: context,
+            builder: (context) => const Center(
+              child: CustomLoadingIndicator(),
+            ),
+          );
+        }
+        if (state is SuccessRegisterState) {
+          Navigator.pushNamed(context, AppRoutes.completeRegister);
           toastFun(txt: 'Sign Up Successfully', state: ToastStates.SUCCESS);
+        }
+        if (state is FailureState) {
+          toastFun(
+              txt: 'Email Or Password Incorrect', state: ToastStates.ERROR);
         }
       },
       builder: (context, state) {
@@ -71,7 +87,8 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                               keyboardType: TextInputType.name,
                               controller:
                                   context.read<SignUpCubit>().nameController,
-                              inputTextStyle: TextStyle(height: .6.h),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 13, horizontal: 15),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "should enter username";
@@ -89,7 +106,8 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                               keyboardType: TextInputType.emailAddress,
                               controller:
                                   context.read<SignUpCubit>().emailController,
-                              inputTextStyle: TextStyle(height: .6.h),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 13, horizontal: 15),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "should enter email";
@@ -124,9 +142,10 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                       : Icons.visibility,
                                 ),
                               ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 13, horizontal: 15),
                               isObscureText:
                                   context.read<SignUpCubit>().isObscureText,
-                              inputTextStyle: TextStyle(height: .6.h),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "should enter password";
@@ -139,71 +158,81 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                             ),
                             verticalSpace(10),
                             const Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Phone',
-                              ),
-                            ),
+                                alignment: Alignment.topLeft,
+                                child: Text('Confirm Password')),
                             AppTextFormField(
-                              hintText: '01555555555',
-                              keyboardType: TextInputType.phone,
-                              controller:
-                                  context.read<SignUpCubit>().phoneController,
-                              inputTextStyle: TextStyle(height: .6.h),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "should enter phone";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ), //phone
-                            verticalSpace(10),
-                            const Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Location',
-                              ),
-                            ),
-                            AppTextFormField(
-                              hintText: 'location',
-                              keyboardType: TextInputType.text,
+                              hintText: '##########',
                               controller: context
                                   .read<SignUpCubit>()
-                                  .locationController,
+                                  .confirmPassController,
+                              keyboardType: TextInputType.visiblePassword,
                               suffixIcon: GestureDetector(
                                 onTap: () {
-                                  context
-                                      .read<SignUpCubit>()
-                                      .fetchCurrentAddress();
+                                  setState(() {
+                                    context.read<SignUpCubit>().isObscureText =
+                                        !(context
+                                            .read<SignUpCubit>()
+                                            .isObscureText);
+                                  });
                                 },
-                                child: const Icon(
-                                  Icons.location_on_outlined,
-                                  size: 25,
+                                child: Icon(
+                                  context.read<SignUpCubit>().isObscureText
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                 ),
                               ),
-                              inputTextStyle: TextStyle(
-                                fontSize: 12.sp,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 13, horizontal: 15),
+                              isObscureText:
+                                  context.read<SignUpCubit>().isObscureText,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "should enter location";
+                                  return "should enter confirm password";
+                                } else if (context
+                                        .read<SignUpCubit>()
+                                        .confirmPassController
+                                        .text !=
+                                    context
+                                        .read<SignUpCubit>()
+                                        .passController
+                                        .text) {
+                                  return 'Password does not match';
                                 } else {
                                   return null;
                                 }
                               },
-                            ), //phone
+                            ),
                             verticalSpace(10),
                             AppTextButton(
-                              buttonText: 'SIGN UP',
+                              buttonText: 'Continue',
                               backgroundColor: ColorsManager.mainColor,
                               buttonHeight: 44.h,
                               buttonWidth: 197.w,
                               textStyle: const TextStyle(
                                 color: ColorsManager.white,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                if (context
+                                    .read<SignUpCubit>()
+                                    .formKey
+                                    .currentState!
+                                    .validate()) {
+                                  context.read<SignUpCubit>().userRegister(
+                                        email: context
+                                            .read<SignUpCubit>()
+                                            .emailController
+                                            .text,
+                                        password: context
+                                            .read<SignUpCubit>()
+                                            .passController
+                                            .text,
+                                        name: context
+                                            .read<SignUpCubit>()
+                                            .nameController
+                                            .text,
+                                      );
+                                }
+                              },
                             ),
                             verticalSpace(20),
                             customTextNextToTextButton(
@@ -211,7 +240,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                               text: 'Already have account?',
                               textButton: 'Login',
                               onPressed: () {
-                                Navigator.pop(context);
+                                context.pushNamed(AppRoutes.login);
                               },
                             ),
                           ],

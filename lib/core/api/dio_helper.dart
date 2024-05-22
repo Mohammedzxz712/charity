@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
 
+import 'api_constant.dart';
+
 class DioHelper {
   static Dio? dio;
 
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://api.themoviedb.org/3/',
+        baseUrl: ApiConstant.baseUrl,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -15,8 +17,15 @@ class DioHelper {
   static Future<Response?> getData({
     required String url,
     Map<String, dynamic>? query,
+    String lang = 'en',
+    String? token,
   }) async {
-    return await dio?.get(url, queryParameters: query);
+    dio!.options.headers = {
+      'Content-Type': 'application/json',
+      'lang': lang,
+      'Authorization': token ?? '',
+    };
+    return await dio?.get(url, queryParameters: query ?? null);
   }
 
   static Future<Response?> postData({

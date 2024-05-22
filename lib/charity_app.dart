@@ -4,18 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CharityApp extends StatelessWidget {
-  AppRouter routes = AppRouter();
-  CharityApp({super.key, required this.routes});
+  final Widget initialWidget;
+  final AppRouter routes;
+
+  CharityApp({super.key, required this.initialWidget, required this.routes});
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightMode,
-      themeMode: ThemeMode.light,
-      initialRoute: '/',
-      onGenerateRoute: (settings) => AppRouter.onGenerate(settings),
+    return ScreenUtilInit(
+      designSize:
+          const Size(375, 812), // Adjust this to match your design dimensions
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightMode,
+          themeMode: ThemeMode.light,
+          home: initialWidget,
+          onGenerateRoute: AppRouter.onGenerate,
+        );
+      },
     );
   }
 }

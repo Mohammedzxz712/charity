@@ -6,7 +6,6 @@ import 'package:charity/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 import '../../../../../../config/colors/app_colors.dart';
 import '../../../../../../config/routes/routes.dart';
 import '../../../../../../core/constant/app_constant.dart';
@@ -15,6 +14,7 @@ import '../../../../../../core/methods/validate_email/vaildate_email.dart';
 import '../../../../../../core/widgets/build_rich_text.dart';
 import '../../../../../../core/widgets/build_text_next_to_text_button.dart';
 import '../../../../../../core/widgets/fun_toast.dart';
+import '../../../../../../core/widgets/progress_indector.dart';
 import '../logic/login_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,25 +24,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var emailController = TextEditingController();
-
   bool isObscureText = true;
-
-  var passController = TextEditingController();
-
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
+        if (state is LoadingState) {
+          showDialog(
+            context: context,
+            builder: (context) => const Center(
+              child: CustomLoadingIndicator(),
+            ),
+          );
+        }
         if (state is LoginSuccessState) {
           Navigator.pushNamed(context, AppRoutes.home);
           toastFun(txt: 'Login Successfully', state: ToastStates.SUCCESS);
         }
+        if (state is ForgetSuccessState) {
+          Navigator.pushNamed(context, AppRoutes.forget);
+          toastFun(txt: 'Forget Successfully', state: ToastStates.SUCCESS);
+        }
         if (state is FailureState) {
           toastFun(
               txt: 'Email Or Password Incorrect', state: ToastStates.ERROR);
+          Navigator.pop(context);
         }
       },
       builder: (context, state) {
@@ -55,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 fit: BoxFit.cover,
               ),
               Form(
-                key: formKey,
+                key: LoginCubit.get(context).formKey,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: SizedBox(
@@ -78,8 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             AppTextFormField(
                               hintText: 'example@gmail.com',
                               keyboardType: TextInputType.emailAddress,
-                              controller: emailController,
-                              inputTextStyle: TextStyle(height: .6.h),
+                              controller:
+                                  context.read<LoginCubit>().emailController,
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 13, horizontal: 15),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "should enter email";
@@ -96,8 +105,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text('Password')),
                             verticalSpace(10),
                             AppTextFormField(
-                              hintText: '##########',
-                              controller: passController,
+                              hintText: '***********',
+                              controller:
+                                  context.read<LoginCubit>().passController,
                               keyboardType: TextInputType.visiblePassword,
                               suffixIcon: GestureDetector(
                                 onTap: () {
@@ -112,7 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               isObscureText: isObscureText,
-                              inputTextStyle: TextStyle(height: .6.h),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 13, horizontal: 15),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "should enter password";
@@ -123,7 +134,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               },
                             ),
-                            verticalSpace(30),
+                            verticalSpace(6),
+                            Row(children: [
+                              const Spacer(),
+                              TextButton(
+                                onPressed: () {
+                                  context.read<LoginCubit>().forgetPassword(
+                                        email: context
+                                            .read<LoginCubit>()
+                                            .emailController
+                                            .text,
+                                      );
+                                },
+                                child: const Text('Forget Password?',
+                                    style: TextStyle(
+                                      color: ColorsManager.semiGreen,
+                                    )),
+                              ),
+                            ]),
                             AppTextButton(
                               buttonText: 'LOGIN',
                               backgroundColor: ColorsManager.mainColor,
@@ -133,10 +161,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: ColorsManager.white,
                               ),
                               onPressed: () {
-                                // AuthCubit.get(context).userLogin(
-                                //     email: emailController.text,
-                                //     password: passController.text);
-                                context.pushNamed(AppRoutes.home);
+                                if (context
+                                    .read<LoginCubit>()
+                                    .formKey
+                                    .currentState!
+                                    .validate()) {
+                                  context.read<LoginCubit>().userLogin(
+                                      email: context
+                                          .read<LoginCubit>()
+                                          .emailController
+                                          .text,
+                                      password: context
+                                          .read<LoginCubit>()
+                                          .passController
+                                          .text);
+                                }
                               },
                             ),
                             customTextNextToTextButton(

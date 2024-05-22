@@ -27,7 +27,7 @@ class DonateBottom extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            context.pushNamed(AppRoutes.organizationMethod);
+            context.pushNamed(AppRoutes.home);
           },
           child: const Text(
             'DONATE NOW',
