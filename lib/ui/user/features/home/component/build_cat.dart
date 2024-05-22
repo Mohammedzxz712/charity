@@ -1,10 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:charity/config/colors/app_colors.dart';
+import 'package:charity/ui/user/features/home/data/model/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
-import '../../../../../config/routes/router.dart';
+import '../../../../../config/routes/app_router.dart';
+import '../../../../../config/routes/routes.dart';
 
 class BuildCategory extends StatelessWidget {
   String imageAsset;
   String title;
+
   String description;
 
   BuildCategory(
@@ -14,103 +22,94 @@ class BuildCategory extends StatelessWidget {
       required this.description});
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.pushNamed(context, AppRoutes.organizationMethod),
-      child: Container(
-        height: 201,
-        width: 373,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.red,
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image(
-                image: AssetImage(imageAsset),
-                height: 201,
-                width: 373,
-                fit: BoxFit.cover,
-              ),
+    return Container(
+      height: 201,
+      width: 373,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: CachedNetworkImage(
+              imageUrl: imageAsset,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                      child: CircularProgressIndicator(
+                value: downloadProgress.progress,
+                color: ColorsManager.mainColor,
+              )),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              height: 201.h,
+              width: 373.w,
             ),
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Container(
-                  height: 100,
-                  width: 373,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
+          ),
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    height: 201.h,
+                    width: 373.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                      color: Colors.black.withOpacity(0.2),
                     ),
-                    color: Colors.black26,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                title,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 19,
-                                  height: 1.2,
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  description,
+                  Container(
+                    height: 90.h,
+                    width: 373.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8.r)),
+                      color: Colors.black.withOpacity(0.35),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  title,
                                   style: const TextStyle(
-                                    color: Colors.white54,
-                                    fontSize: 10,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
                                     height: 1.2,
                                   ),
+                                  textDirection: TextDirection.rtl,
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                            ],
+                                Gap(5.h),
+                                Text(
+                                  description,
+                                  style: const TextStyle(
+                                    color: ColorsManager.lighterGray,
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 14,
+                                    height: 1.3,
+                                  ),
+                                  maxLines: 2,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        // SizedBox(
-                        //   width: 90.88,
-                        //   height: 29.88,
-                        //   child: ElevatedButton(
-                        //     onPressed: () {
-                        //       Navigator.pushNamed(context, AppRoutes.payment);
-                        //     },
-                        //     style: ButtonStyle(
-                        //       backgroundColor: const MaterialStatePropertyAll(
-                        //         Color(0xff1DD56C),
-                        //       ),
-                        //       shape: MaterialStatePropertyAll(
-                        //         RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(6),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     child: const Text(
-                        //       'DONATE NOW',
-                        //       style: TextStyle(fontSize: 8.3),
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

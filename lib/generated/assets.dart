@@ -22,6 +22,7 @@ class Assets {
       'assets/images/pexels-kampus-production-7551662.png';
   static const String imagesPexelsSporaWeddings18992280 =
       'assets/images/pexels-spora-weddings-18992280.png';
+  static const String imagesSplash = 'assets/images/splash.png';
   static const String imagesTwitter = 'assets/images/twitter.png';
   static const String imagesWashingMachineSvgrepoCom =
       'assets/images/washing-machine-svgrepo-com.svg';

@@ -1,4 +1,7 @@
+import 'package:charity/config/routes/app_router.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../config/routes/routes.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({super.key});
@@ -22,8 +25,11 @@ class BottomNav extends StatelessWidget {
               ),
             ),
           ),
-          onPressed: () {},
-          child: const Text('LEARN MORE'),
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutes.about);
+          },
+          child:
+              const Text('LEARN MORE', style: TextStyle(color: Colors.white)),
         ),
       ),
     );

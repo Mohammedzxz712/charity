@@ -1,29 +1,33 @@
 import 'package:bloc/bloc.dart';
-import 'package:charity/config/routes/router.dart';
-import 'package:charity/config/themes/themes.dart';
+import 'package:charity/core/api/api_constant.dart';
 import 'package:charity/ui/user/cubit/bloc_observer.dart';
+import 'package:charity/ui/user/features/authentication/choise_screen/choise_screen.dart';
+import 'package:charity/ui/user/features/home/screen/home_screen.dart';
+import 'package:charity/ui/user/features/payment/logic/payment_keys.dart';
+import 'package:charity/ui/user/features/support/screen/review_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'charity_app.dart';
+import 'config/routes/app_router.dart';
+import 'core/api/dio_helper.dart';
+import 'core/cache/cache_helper.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  DioHelper.init();
+  await CacheHelper.init();
+  Stripe.publishableKey = ApiKeys.publishableKey;
   Bloc.observer = MyBlocObserver();
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  String? token = CacheHelper.getBool(key: 'token');
+  int? id = CacheHelper.getBool(key: 'id');
+  ApiConstant.token = token;
+  ApiConstant.id = id;
+  print(ApiConstant.token);
+  print(ApiConstant.id);
 
-  @override
-  Widget build(BuildContext context) {
-    // Initialize flutter_screenutil
-    ScreenUtil.init(context);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightMode,
-      themeMode: ThemeMode.light,
-      initialRoute: '/',
-      onGenerateRoute: (settings) => Routes.onGenerate(settings),
-    );
-  }
+  runApp(CharityApp(
+    initialWidget: token == null ? ChoiseScreen() : HomeScreen(),
+    routes: AppRouter(),
+  ));
 }
