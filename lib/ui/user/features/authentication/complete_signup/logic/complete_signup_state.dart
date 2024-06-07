@@ -10,6 +10,12 @@ class CompleteSignUpSuccess extends CompleteSignUpState {}
 
 class SuccessCameraState extends CompleteSignUpState {}
 
+class FailureState extends CompleteSignUpState {
+  final String error;
+
+  FailureState({required this.error});
+}
+
 class ErrorCameraState extends CompleteSignUpState {
   final String error;
   ErrorCameraState({required this.error});

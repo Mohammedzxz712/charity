@@ -29,8 +29,6 @@ class CategoriesCubit extends Cubit<CategoriesState> {
         _showBottomSheet(context, const ClotheDonationBottomSheet());
       } else if (phrase.contains('اجهزه')) {
         _showBottomSheet(context, const HouseWareDonationBottomSheet());
-      } else if (phrase.contains('مال')) {
-        _showBottomSheet(context, const MoneyDonationBottomSheet());
       } else {
         _showBottomSheet(context, const MoneyDonationBottomSheet());
         // Navigator.pushNamed(context, AppRoutes.payment);
@@ -70,6 +68,43 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
     DioHelper.getData(
       url: '${ApiConstant.categories}$id',
+      token: ApiConstant.token,
+    ).then((value) {
+      if (value?.data != null) {
+        print('Response data: ${value?.data}');
+        try {
+          List<dynamic> data = value?.data;
+          categoriesList =
+              data.map((json) => Categories.fromJson(json)).toList();
+          print(
+              categoriesList?.map((category) => category.description).toList());
+          emit(CategoriesSuccessState(categoriesList!));
+        } catch (e) {
+          print('Parsing error: $e');
+          emit(
+              OrganizationCategoriesError("Failed to parse organization data"));
+        }
+      } else {
+        print('No data available');
+        emit(OrganizationCategoriesError("Failed to load organization data"));
+      }
+    }).catchError((error) {
+      print('Error: $error');
+      emit(OrganizationCategoriesError(error.toString()));
+    });
+  }
+
+  void submitFood(
+    int user_id,
+    int organization_id,
+    int category_id,
+    String donation_type,
+    String image,
+  ) {
+    emit(OrganizationCategoriesLoading());
+
+    DioHelper.getData(
+      url: ApiConstant.donation,
       token: ApiConstant.token,
     ).then((value) {
       if (value?.data != null) {

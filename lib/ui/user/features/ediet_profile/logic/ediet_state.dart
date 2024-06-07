@@ -17,4 +17,14 @@ class FailureState extends EdietState {
 
 class EdietSuccessState extends EdietState {}
 
+class GetSuccessState extends EdietState {}
+
+class CameraSuccessState extends EdietState {}
+
+class CameraFailureState extends EdietState {
+  final String error;
+
+  CameraFailureState({required this.error});
+}
+
 class UpdateUserDataSuccessState extends EdietState {}

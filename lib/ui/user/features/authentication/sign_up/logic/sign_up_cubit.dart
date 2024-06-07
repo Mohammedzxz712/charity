@@ -55,9 +55,12 @@ class SignUpCubit extends Cubit<SignUpState> {
     ).then((value) {
       CacheHelper.saveData(
           key: 'token', value: 'Bearer ${value?.data['token']}');
-      userId = value?.data['id'];
-      print(userId);
-      print(CacheHelper.getBool(key: 'token'));
+
+      CacheHelper.saveData(key: 'id', value: value?.data['id']);
+
+      ApiConstant.token = CacheHelper.getBool(key: 'token');
+      print(ApiConstant.token);
+      print(ApiConstant.id);
 
       emit(SuccessRegisterState());
     }).catchError((error) {

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../component/build_contact.dart';
 import '../component/build_faq_screen.dart';
 import '../logic/support_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HelpAndSupportScreen extends StatelessWidget {
   const HelpAndSupportScreen({super.key});
@@ -20,14 +21,14 @@ class HelpAndSupportScreen extends StatelessWidget {
               indicatorColor: Colors.black,
               tabs: [
                 Text(
-                  'Make Review',
+                  AppLocalizations.of(context)!.makereview,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
                       .copyWith(fontSize: 16.sp),
                 ),
                 Text(
-                  'Contacts',
+                  AppLocalizations.of(context)!.contacts,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!

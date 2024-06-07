@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../generated/assets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeAndImageAndTextAndDivider extends StatelessWidget {
   const WelcomeAndImageAndTextAndDivider({super.key});
@@ -13,14 +14,14 @@ class WelcomeAndImageAndTextAndDivider extends StatelessWidget {
         verticalSpace(15),
         RichText(
           text: TextSpan(
-            text: 'WELCOME TO',
+            text: AppLocalizations.of(context)!.welcometo,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
             children: [
               TextSpan(
-                text: ' OUR CHARITY',
+                text: AppLocalizations.of(context)!.ourcharity,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -34,10 +35,11 @@ class WelcomeAndImageAndTextAndDivider extends StatelessWidget {
         const Image(
           image: AssetImage(Assets.imagesKrakenimagesY5bvRlcCx8kUnsplash),
         ),
-        const Text(
+        Text(
             textAlign: TextAlign.center,
             style: TextStyle(height: 1.9),
-            'WE RE A PASSIONATE AND DEDICATED TEAM WORKING RELENTLESSLY TO MAKE APOSITIVE IMPACT IN THE WORLD. OURMISSION IS TO UPLIFT COMMUNITIE,PROVIDE ESSENTIAL RESOURCES , ANDPROMOTE EQUALITY FOR ALL. TOGETHERWE CAN CREATE POSITIVE CHANGE BYSUPPORTING THOSE IN NEED'),
+            AppLocalizations.of(context)!
+                .weareapassionateanddedicatedteamworkingrelentlesslytomakeapositiveimpactintheworldourmissionistoupliftcommunitiesprovideessentialresourcesandpromoteequalityforalltogetherwecancreatepositivechangebysupportingthoseinneed),
         verticalSpace(17.5),
         const Divider(
           color: Colors.black,

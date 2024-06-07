@@ -31,7 +31,7 @@ class SupportCubit extends Cubit<SupportState> {
         'user_id': useId,
       },
     ).then((value) {
-      print(value?.data);
+      getReviews();
       emit(SupportSuccessState());
     }).catchError((error) {
       print(error.toString());

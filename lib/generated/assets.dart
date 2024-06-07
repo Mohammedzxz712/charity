@@ -13,11 +13,13 @@ class Assets {
       'assets/images/Icon metro-injection.svg';
   static const String imagesIconopenDollar =
       'assets/images/Icon open-dollar.svg';
+  static const String imagesImg = 'assets/images/img.png';
   static const String imagesKrakenimagesY5bvRlcCx8kUnsplash =
       'assets/images/krakenimages-Y5bvRlcCx8k-unsplash.png';
   static const String imagesLinkedin = 'assets/images/linkedin.png';
   static const String imagesLudemeulaFernandes9UUoGaaHtNEUnsplash =
       'assets/images/ludemeula-fernandes-9UUoGaaHtNE-unsplash.png';
+  static const String imagesOmar = 'assets/images/omar.png';
   static const String imagesPexelsKampusProduction7551662 =
       'assets/images/pexels-kampus-production-7551662.png';
   static const String imagesPexelsSporaWeddings18992280 =

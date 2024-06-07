@@ -12,28 +12,21 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EdietCubit, EdietState>(
-      listener: (context, state) {
-        if (state is LoadingState) {
-          showDialog(
-            context: context,
-            builder: (context) => const Center(
-              child: CustomLoadingIndicator(),
-            ),
-          );
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final cubit = context.read<EdietCubit>();
-        if (state is EdietSuccessState && cubit.GetProfileModel != null) {
-          cubit.nameController.text = cubit.GetProfileModel!.name!;
-          cubit.locationController.text = cubit.GetProfileModel!.location!;
-          cubit.phoneController.text = cubit.GetProfileModel!.phone!;
-          cubit.emailController.text = cubit.GetProfileModel!.email!;
+        var model = cubit.GetProfileModel;
+        if (state is GetSuccessState && cubit.GetProfileModel != null) {
+          cubit.nameController.text = model!.name!;
+          cubit.locationController.text = model!.location!;
+          cubit.phoneController.text = model!.phone!;
+          cubit.emailController.text = model!.email!;
         }
 
         return ConditionalBuilder(
           condition:
-              state is EdietSuccessState && cubit.GetProfileModel != null ||
+              state is GetSuccessState && cubit.GetProfileModel != null ||
+                  state is CameraSuccessState ||
                   state is UpdateUserDataSuccessState,
           fallback: (context) => const Center(child: CustomLoadingIndicator()),
           builder: (context) => Scaffold(

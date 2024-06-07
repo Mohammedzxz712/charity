@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../../core/widgets/app_text_form_field.dart';
+import '../../payment/paymob/paymop_manager.dart';
 
 class MoneyDonationBottomSheet extends StatefulWidget {
   const MoneyDonationBottomSheet({Key? key}) : super(key: key);
@@ -12,7 +17,7 @@ class MoneyDonationBottomSheet extends StatefulWidget {
 class _MoneyDonationBottomSheetState extends State<MoneyDonationBottomSheet>
     with WidgetsBindingObserver {
   bool isKeyboardVisible = false;
-
+  var amountController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -64,27 +69,30 @@ class _MoneyDonationBottomSheetState extends State<MoneyDonationBottomSheet>
           const SizedBox(height: 28),
           SizedBox(
             width: fieldWidth,
-            child: TextFormField(
-              style: const TextStyle(height: .9),
-              cursorColor: Colors.grey,
-              decoration: InputDecoration(
-                labelText: 'Type of Money',
-                labelStyle: const TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+            child: AppTextFormField(
+              controller: amountController,
+              prefixIcon: const Icon(Icons.monetization_on_outlined),
+              hintText: 'AMOUNT',
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the payment amount';
+                }
+                return null;
+              },
             ),
           ),
           const SizedBox(height: 10),
           Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
-              onPressed: () async {},
+              onPressed: () async {
+                _pay(int.tryParse(amountController.text)!)
+                    .then((value) => print('bbb'));
+              },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(
                   const Color(0xff1DD56C),
@@ -105,4 +113,14 @@ class _MoneyDonationBottomSheetState extends State<MoneyDonationBottomSheet>
       ),
     );
   }
+}
+
+Future<void> _pay(int amount) async {
+  PaymobManager().getPaymentKey(amount, "EGP").then((String paymentKey) {
+    launchUrl(
+      Uri.parse(
+          "https://accept.paymob.com/api/acceptance/iframes/847996?payment_token=$paymentKey"),
+      //https://accept.paymob.com/api/acceptance/iframes/847996?payment_token={payment_key_obtained_previously}
+    );
+  });
 }

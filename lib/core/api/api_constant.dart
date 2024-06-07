@@ -7,6 +7,7 @@ class ApiConstant {
   static String categories = 'organization/category/';
 
   static String support = 'review';
+  static String donation = 'donation';
   static String reviews = 'all-reviews';
 
   static String? token;
@@ -20,6 +21,7 @@ class ApiConstant {
   static String completeRegister = 'complete-register';
 
   static String organizations = 'organizations';
+  static String campaigns = 'campaigns';
 
   static String oneOrganization = 'organization/';
   static String updateProfile = 'updateProfile';

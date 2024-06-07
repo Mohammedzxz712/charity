@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import '../../../../../../core/api/api_constant.dart';
 import '../../../../../../core/api/dio_helper.dart';
-import '../../../ediet_profile/data/model/get_profile.dart';
 import '../data/model/user_login_model.dart';
 part 'login_state.dart';
 
@@ -44,7 +43,6 @@ class LoginCubit extends Cubit<LoginState> {
         );
       }
       ApiConstant.token = 'Bearer ${loginModel?.token}';
-      ApiConstant.id = loginModel?.id;
 
       print(ApiConstant.token);
       print(CacheHelper.getBool(key: 'token'));

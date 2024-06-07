@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:charity/config/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../data/model/category_item_model.dart';
 
 class CategoryItem extends StatelessWidget {

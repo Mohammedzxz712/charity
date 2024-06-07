@@ -1,8 +1,10 @@
 import 'package:charity/core/helpers/exetinsions.dart';
 import 'package:charity/generated/assets.dart';
 import 'package:charity/ui/user/features/authentication/login/logic/login_cubit.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../config/colors/app_colors.dart';
@@ -19,6 +21,7 @@ import '../../../../../../core/widgets/fun_toast.dart';
 import '../../../../../../core/widgets/progress_indector.dart';
 import '../../complete_signup/screen/complete_signup.dart';
 import '../logic/sign_up_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreenBody extends StatefulWidget {
   RegisterScreenBody({super.key});
@@ -42,11 +45,14 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
         }
         if (state is SuccessRegisterState) {
           Navigator.pushNamed(context, AppRoutes.completeRegister);
-          toastFun(txt: 'Sign Up Successfully', state: ToastStates.SUCCESS);
+          toastFun(
+              txt: AppLocalizations.of(context)!.signupsuccessfully,
+              state: ToastStates.SUCCESS);
         }
         if (state is FailureState) {
           toastFun(
-              txt: 'Email Or Password Incorrect', state: ToastStates.ERROR);
+              txt: AppLocalizations.of(context)!.emailorpasswordincorrect,
+              state: ToastStates.ERROR);
         }
       },
       builder: (context, state) {
@@ -68,19 +74,21 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             verticalSpace(40),
-                            customRichText(
-                              context: context,
-                              textPartOne: 'Sign ',
-                              textPartTwo: 'UP',
+                            Align(
+                              alignment: Alignment.center,
+                              child: customRichText(
+                                context: context,
+                                textPartOne:
+                                    AppLocalizations.of(context)!.sign1,
+                                textPartTwo: AppLocalizations.of(context)!.up1,
+                              ),
                             ),
                             verticalSpace(40),
-                            const Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Full Name',
-                              ),
+                            Text(
+                              AppLocalizations.of(context)!.fullname,
                             ),
                             AppTextFormField(
                               hintText: 'mohammed',
@@ -91,16 +99,15 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                   vertical: 13, horizontal: 15),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "should enter username";
+                                  return AppLocalizations.of(context)!
+                                      .shouldenterusername;
                                 } else {
                                   return null;
                                 }
                               },
                             ),
                             verticalSpace(10),
-                            const Align(
-                                alignment: Alignment.topLeft,
-                                child: Text('Email')),
+                            Text(AppLocalizations.of(context)!.email),
                             AppTextFormField(
                               hintText: 'example@gmail.com',
                               keyboardType: TextInputType.emailAddress,
@@ -110,18 +117,17 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                   vertical: 13, horizontal: 15),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "should enter email";
+                                  return AppLocalizations.of(context)!.email;
                                 } else if (!isEmailValid(value)) {
-                                  return 'email must contain @ & .com';
+                                  return AppLocalizations.of(context)!
+                                      .emailmustcontain;
                                 } else {
                                   return null;
                                 }
                               },
                             ),
                             verticalSpace(10),
-                            const Align(
-                                alignment: Alignment.topLeft,
-                                child: Text('Password')),
+                            Text(AppLocalizations.of(context)!.password),
                             AppTextFormField(
                               hintText: '##########',
                               controller:
@@ -148,18 +154,17 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                   context.read<SignUpCubit>().isObscureText,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "should enter password";
+                                  return AppLocalizations.of(context)!.password;
                                 } else if (!isPasswordValid(value)) {
-                                  return 'Password must include: 0-9, A-Z, a-z, and special characters';
+                                  return AppLocalizations.of(context)!
+                                      .passwordmustinclude;
                                 } else {
                                   return null;
                                 }
                               },
                             ),
                             verticalSpace(10),
-                            const Align(
-                                alignment: Alignment.topLeft,
-                                child: Text('Confirm Password')),
+                            Text(AppLocalizations.of(context)!.confirmpassword),
                             AppTextFormField(
                               hintText: '##########',
                               controller: context
@@ -187,7 +192,8 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                   context.read<SignUpCubit>().isObscureText,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "should enter confirm password";
+                                  return AppLocalizations.of(context)!
+                                      .confirmpassword;
                                 } else if (context
                                         .read<SignUpCubit>()
                                         .confirmPassController
@@ -196,49 +202,55 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                         .read<SignUpCubit>()
                                         .passController
                                         .text) {
-                                  return 'Password does not match';
+                                  return AppLocalizations.of(context)!
+                                      .passworddoesnotmatch;
                                 } else {
                                   return null;
                                 }
                               },
                             ),
                             verticalSpace(10),
-                            AppTextButton(
-                              buttonText: 'Continue',
-                              backgroundColor: ColorsManager.mainColor,
-                              buttonHeight: 44.h,
-                              buttonWidth: 197.w,
-                              textStyle: const TextStyle(
-                                color: ColorsManager.white,
+                            Align(
+                              alignment: Alignment.center,
+                              child: AppTextButton(
+                                buttonText:
+                                    AppLocalizations.of(context)!.continues,
+                                backgroundColor: ColorsManager.mainColor,
+                                buttonHeight: 44.h,
+                                buttonWidth: 197.w,
+                                textStyle: const TextStyle(
+                                  color: ColorsManager.white,
+                                ),
+                                onPressed: () {
+                                  if (context
+                                      .read<SignUpCubit>()
+                                      .formKey
+                                      .currentState!
+                                      .validate()) {
+                                    context.read<SignUpCubit>().userRegister(
+                                          email: context
+                                              .read<SignUpCubit>()
+                                              .emailController
+                                              .text,
+                                          password: context
+                                              .read<SignUpCubit>()
+                                              .passController
+                                              .text,
+                                          name: context
+                                              .read<SignUpCubit>()
+                                              .nameController
+                                              .text,
+                                        );
+                                  }
+                                },
                               ),
-                              onPressed: () {
-                                if (context
-                                    .read<SignUpCubit>()
-                                    .formKey
-                                    .currentState!
-                                    .validate()) {
-                                  context.read<SignUpCubit>().userRegister(
-                                        email: context
-                                            .read<SignUpCubit>()
-                                            .emailController
-                                            .text,
-                                        password: context
-                                            .read<SignUpCubit>()
-                                            .passController
-                                            .text,
-                                        name: context
-                                            .read<SignUpCubit>()
-                                            .nameController
-                                            .text,
-                                      );
-                                }
-                              },
                             ),
                             verticalSpace(20),
                             customTextNextToTextButton(
                               context: context,
-                              text: 'Already have account?',
-                              textButton: 'Login',
+                              text: AppLocalizations.of(context)!
+                                  .alreadyhaveaccount,
+                              textButton: AppLocalizations.of(context)!.login,
                               onPressed: () {
                                 context.pushNamed(AppRoutes.login);
                               },
