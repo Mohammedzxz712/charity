@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:charity/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../config/routes/routes.dart';
 import '../../../../../config/style/styles.dart';
 import '../../../../../core/helpers/spacing.dart';
 
@@ -64,6 +65,9 @@ class CombineScreen extends StatelessWidget {
                 Row(
                   children: [
                     InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRoutes.payment);
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 12.w,
