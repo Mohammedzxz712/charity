@@ -10,3 +10,5 @@ class HomeErrorState extends HomeStates {
   final String error;
   HomeErrorState({required this.error});
 }
+
+class HomeSuccessCampaignState extends HomeStates {}

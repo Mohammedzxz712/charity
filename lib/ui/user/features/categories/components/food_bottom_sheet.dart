@@ -1,4 +1,6 @@
+import 'package:charity/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 class FoodDonationBottomSheet extends StatefulWidget {
@@ -119,6 +121,25 @@ class _FoodDonationBottomSheetState extends State<FoodDonationBottomSheet>
             ),
           ),
           const SizedBox(height: 20),
+          InkWell(
+            onTap: () {},
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.upload, color: Colors.black),
+                SizedBox(width: 8.0),
+                Text(
+                  'Upload Image',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          verticalSpace(10),
           Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(

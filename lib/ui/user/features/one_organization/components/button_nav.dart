@@ -1,6 +1,7 @@
 import 'package:charity/config/routes/routes.dart';
 import 'package:charity/ui/user/features/categories/screens/categories_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ButtonNavDonate extends StatelessWidget {
   final organizationId;
@@ -33,8 +34,8 @@ class ButtonNavDonate extends StatelessWidget {
                       OrganizationMethod(organizationId: organizationId),
                 ));
           },
-          child:
-              const Text('DONATE NOW', style: TextStyle(color: Colors.white)),
+          child: Text(AppLocalizations.of(context)!.donatenow,
+              style: TextStyle(color: Colors.white)),
         ),
       ),
     );

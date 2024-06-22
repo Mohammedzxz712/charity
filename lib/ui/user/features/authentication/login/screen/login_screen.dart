@@ -16,6 +16,7 @@ import '../../../../../../core/widgets/build_text_next_to_text_button.dart';
 import '../../../../../../core/widgets/fun_toast.dart';
 import '../../../../../../core/widgets/progress_indector.dart';
 import '../logic/login_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key});
@@ -40,15 +41,20 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         if (state is LoginSuccessState) {
           Navigator.pushNamed(context, AppRoutes.home);
-          toastFun(txt: 'Login Successfully', state: ToastStates.SUCCESS);
+          toastFun(
+              txt: AppLocalizations.of(context)!.loginsuccessfully,
+              state: ToastStates.SUCCESS);
         }
         if (state is ForgetSuccessState) {
           Navigator.pushNamed(context, AppRoutes.forget);
-          toastFun(txt: 'Forget Successfully', state: ToastStates.SUCCESS);
+          toastFun(
+              txt: AppLocalizations.of(context)!.forgetsuccessfully,
+              state: ToastStates.SUCCESS);
         }
         if (state is FailureState) {
           toastFun(
-              txt: 'Email Or Password Incorrect', state: ToastStates.ERROR);
+              txt: AppLocalizations.of(context)!.emailorpasswordincorrect,
+              state: ToastStates.ERROR);
           Navigator.pop(context);
         }
       },
@@ -74,13 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             customRichText(
                               context: context,
-                              textPartOne: 'Log ',
-                              textPartTwo: 'In',
+                              textPartOne: AppLocalizations.of(context)!.log,
+                              textPartTwo: AppLocalizations.of(context)!.ins,
                             ),
                             verticalSpace(40),
-                            const Align(
-                                alignment: Alignment.topLeft,
-                                child: Text('Email')),
+                            Align(
+                                alignment: Alignment.topRight,
+                                child:
+                                    Text(AppLocalizations.of(context)!.email)),
                             verticalSpace(10),
                             AppTextFormField(
                               hintText: 'example@gmail.com',
@@ -91,18 +98,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                   vertical: 13, horizontal: 15),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "should enter email";
+                                  return AppLocalizations.of(context)!
+                                      .shouldenteremail;
                                 } else if (!isEmailValid(value)) {
-                                  return 'email must contain @ & .com';
+                                  return AppLocalizations.of(context)!
+                                      .emailmustcontain;
                                 } else {
                                   return null;
                                 }
                               },
                             ),
                             verticalSpace(10),
-                            const Align(
-                                alignment: Alignment.topLeft,
-                                child: Text('Password')),
+                            Align(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                    AppLocalizations.of(context)!.password)),
                             verticalSpace(10),
                             AppTextFormField(
                               hintText: '***********',
@@ -126,9 +136,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   vertical: 13, horizontal: 15),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "should enter password";
+                                  return AppLocalizations.of(context)!
+                                      .shouldenterpassword;
                                 } else if (!isPasswordValid(value)) {
-                                  return 'Password must include: 0-9, A-Z, a-z, and special characters';
+                                  return AppLocalizations.of(context)!
+                                      .passwordmustinclude;
                                 } else {
                                   return null;
                                 }
@@ -146,14 +158,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                             .text,
                                       );
                                 },
-                                child: const Text('Forget Password?',
-                                    style: TextStyle(
-                                      color: ColorsManager.semiGreen,
-                                    )),
+                                child:
+                                    Text(AppLocalizations.of(context)!.forget,
+                                        style: TextStyle(
+                                          color: ColorsManager.semiGreen,
+                                        )),
                               ),
                             ]),
                             AppTextButton(
-                              buttonText: 'LOGIN',
+                              buttonText: AppLocalizations.of(context)!.login,
                               backgroundColor: ColorsManager.mainColor,
                               buttonHeight: 44.h,
                               buttonWidth: 197.w,
@@ -180,8 +193,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             customTextNextToTextButton(
                               context: context,
-                              text: 'Create account?',
-                              textButton: 'SignUp',
+                              text: AppLocalizations.of(context)!.createacoount,
+                              textButton: AppLocalizations.of(context)!.signup,
                               onPressed: () {
                                 context.pushNamed(AppRoutes.signup);
                               },

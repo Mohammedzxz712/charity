@@ -2,6 +2,7 @@ import 'package:charity/config/routes/app_router.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../config/routes/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({super.key});
@@ -28,8 +29,8 @@ class BottomNav extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, AppRoutes.about);
           },
-          child:
-              const Text('LEARN MORE', style: TextStyle(color: Colors.white)),
+          child: Text(AppLocalizations.of(context)!.learnmore,
+              style: TextStyle(color: Colors.white)),
         ),
       ),
     );

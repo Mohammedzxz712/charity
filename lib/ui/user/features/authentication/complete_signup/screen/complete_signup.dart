@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../../config/routes/routes.dart';
 import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/widgets/app_text_bottom.dart';
 import '../../../../../../core/widgets/app_text_form_field.dart';
+import '../../../../../../core/widgets/fun_toast.dart';
+import '../../../../../../core/widgets/progress_indector.dart';
 import '../../../../../../generated/assets.dart';
+import '../../../ediet_profile/logic/ediet_cubit.dart';
 import '../logic/complete_signup_cubit.dart';
 import '../../../../../../config/colors/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CompleteSignUp extends StatelessWidget {
   final int userId;
@@ -17,7 +22,23 @@ class CompleteSignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<CompleteSignupCubit, CompleteSignUpState>(
       listener: (context, state) {
-        // Handle state changes if needed
+        if (state is CompleteSignUpLoading) {
+          showDialog(
+            context: context,
+            builder: (context) => const Center(
+              child: CustomLoadingIndicator(),
+            ),
+          );
+        }
+        if (state is CompleteSignUpSuccess) {
+          Navigator.pushNamed(context, AppRoutes.home);
+          toastFun(
+              txt: AppLocalizations.of(context)!.signupsuccessfully,
+              state: ToastStates.SUCCESS);
+        }
+        if (state is CompleteSignUpFailure) {
+          toastFun(txt: state.error, state: ToastStates.ERROR);
+        }
       },
       builder: (context, state) {
         var cubit = context.read<CompleteSignupCubit>();
@@ -47,7 +68,7 @@ class CompleteSignUp extends StatelessWidget {
                               radius: 55,
                               backgroundImage: cubit.profilePhoto != null
                                   ? FileImage(cubit.profilePhoto!)
-                                  : const AssetImage('path/to/default/image')
+                                  : const AssetImage(Assets.imagesImg)
                                       as ImageProvider,
                             ),
                             CircleAvatar(
@@ -64,30 +85,35 @@ class CompleteSignUp extends StatelessWidget {
                           ],
                         ),
                         verticalSpace(10),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Text('Phone'),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(AppLocalizations.of(context)!.phone),
                         ),
+                        verticalSpace(10),
                         AppTextFormField(
                           hintText: '01000000000',
+                          controller: cubit.phoneController,
                           keyboardType: TextInputType.phone,
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 13, horizontal: 15),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "should enter phone";
+                              return AppLocalizations.of(context)!
+                                  .pleaseenteraphonenumber;
                             }
                             return null;
                           },
                         ),
                         verticalSpace(10),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                          child: Text('Location'),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(AppLocalizations.of(context)!.location),
                         ),
+                        verticalSpace(10),
                         AppTextFormField(
-                          hintText: 'location',
+                          hintText: AppLocalizations.of(context)!.location,
                           keyboardType: TextInputType.text,
+                          controller: cubit.locationController,
                           suffixIcon: GestureDetector(
                             onTap: () {},
                             child: const Icon(Icons.location_on_outlined,
@@ -97,14 +123,15 @@ class CompleteSignUp extends StatelessWidget {
                               vertical: 13, horizontal: 15),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "should enter location";
+                              return AppLocalizations.of(context)!
+                                  .pleaseenteralocation;
                             }
                             return null;
                           },
                         ),
                         verticalSpace(25),
                         AppTextButton(
-                          buttonText: 'SIGN UP',
+                          buttonText: AppLocalizations.of(context)!.signup,
                           backgroundColor: ColorsManager.mainColor,
                           buttonHeight: 44.h,
                           buttonWidth: 197.w,
@@ -112,10 +139,10 @@ class CompleteSignUp extends StatelessWidget {
                               const TextStyle(color: ColorsManager.white),
                           onPressed: () {
                             if (cubit.formKey.currentState!.validate()) {
-                              cubit.completeRegister(
-                                location: cubit.locationController.text,
-                                image: cubit.profilePhoto!,
-                                userId: userId,
+                              cubit.completeSignUp(
+                                cubit.phoneController.text,
+                                cubit.locationController.text,
+                                cubit.profilePhoto,
                               );
                             }
                           },

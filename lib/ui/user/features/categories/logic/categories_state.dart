@@ -7,6 +7,8 @@ class CategoriesInitial extends CategoriesState {}
 
 class OrganizationCategoriesLoading extends CategoriesState {}
 
+class SubmitSuccessState extends CategoriesState {}
+
 class CategoriesSuccessState extends CategoriesState {
   final List<Categories> categories;
 

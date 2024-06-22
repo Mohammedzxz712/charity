@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomDrawer extends StatelessWidget {
   final bool isDrawerOpen;
@@ -21,8 +22,8 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
-      duration: const Duration(milliseconds: 200),
-      left: isDrawerOpen ? 0 : -MediaQuery.of(context).size.width,
+      duration: const Duration(milliseconds: 300),
+      right: isDrawerOpen ? 0 : -MediaQuery.of(context).size.width,
       child: buildDrawerContent(context),
     );
   }
@@ -43,10 +44,14 @@ class CustomDrawer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildDrawerItem(context, 'HOME', onHomeTap),
-          buildDrawerItem(context, 'ABOUT', onAboutTap),
-          buildDrawerItem(context, 'SUPPORT', onSupportTap),
-          buildDrawerItem(context, 'SIGN OUT', onSignOutTap),
+          buildDrawerItem(
+              context, AppLocalizations.of(context)!.home, onHomeTap),
+          buildDrawerItem(
+              context, AppLocalizations.of(context)!.about, onAboutTap),
+          buildDrawerItem(
+              context, AppLocalizations.of(context)!.support, onSupportTap),
+          buildDrawerItem(
+              context, AppLocalizations.of(context)!.signout, onSignOutTap),
           // Add other drawer items using buildDrawerItem function
         ],
       ),

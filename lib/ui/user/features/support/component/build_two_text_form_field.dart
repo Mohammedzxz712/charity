@@ -7,6 +7,7 @@ import '../../../../../core/constant/app_constant.dart';
 import '../../../../../core/methods/pass_validate/pass_validate.dart';
 import '../../../../../core/methods/validate_email/vaildate_email.dart';
 import '../../../../../core/widgets/custom_text_form_feild.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomTwoTextFromField extends StatelessWidget {
   CustomTwoTextFromField({
@@ -57,7 +58,7 @@ class CustomTwoTextFromField extends StatelessWidget {
               if (value!.isEmpty) {
                 return "should enter $label2";
               } else if (!isEmailValid(value)) {
-                return 'email should contain @ & .com';
+                return AppLocalizations.of(context)!.emailshouldcontainatandcom;
               } else {
                 return null;
               }
@@ -85,7 +86,7 @@ class CustomTwoTextFromField extends StatelessWidget {
               if (value!.isEmpty) {
                 return "should enter $label2";
               } else if (!isPasswordValid(value)) {
-                return 'Password must include: 0-9, A-Z, a-z, and special characters';
+                return AppLocalizations.of(context)!.passwordmustinclude;
               } else {
                 return null;
               }

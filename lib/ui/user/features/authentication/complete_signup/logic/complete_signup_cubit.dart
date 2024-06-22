@@ -1,13 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
+import 'package:path/path.dart' as path;
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../../../../core/api/api_constant.dart';
 import '../../../../../../core/api/dio_helper.dart';
-
 part 'complete_signup_state.dart';
 
 class CompleteSignupCubit extends Cubit<CompleteSignUpState> {
@@ -17,6 +15,7 @@ class CompleteSignupCubit extends Cubit<CompleteSignUpState> {
   var formKey = GlobalKey<FormState>();
 
   var phoneController = TextEditingController();
+
   File? profilePhoto;
   final picker = ImagePicker();
 
@@ -26,35 +25,49 @@ class CompleteSignupCubit extends Cubit<CompleteSignUpState> {
       profilePhoto = File(pickedFile.path);
       emit(SuccessCameraState());
     } else {
-      emit(ErrorCameraState(error: 'No Image Selected'));
+      emit(FailureState(error: 'No image selected'));
     }
   }
 
-  void completeRegister({
-    required String location,
-    required File image,
-    required int userId,
-  }) {
+  void completeSignUp(
+    String phone,
+    String location,
+    File? profilePhoto,
+  ) async {
     emit(CompleteSignUpLoading());
 
-    // Convert the image file to a base64 string or formData if needed
-    String base64Image = base64Encode(image.readAsBytesSync());
+    try {
+      // Create FormData
+      FormData formData = FormData.fromMap({
+        "phone": phone,
+        "location": location,
+      });
 
-    DioHelper.postData(
-      url: ApiConstant.completeRegister,
-      lang: 'en',
-      data: {
-        'location': location,
-        'user_id': userId,
-        'image': base64Image,
-      },
-    ).then((value) {
-      print(value.toString());
-      emit(CompleteSignUpSuccess());
-    }).catchError((error) {
-      print(
-          '----------------------------------------------${error.toString()}');
-      emit(CompleteSignUpFailure(error.toString()));
-    });
+      if (profilePhoto != null) {
+        formData.files.add(MapEntry(
+          "image",
+          await MultipartFile.fromFile(profilePhoto.path,
+              filename: path.basename(profilePhoto.path)),
+        ));
+      }
+
+      // Send the request using putData2
+      Response? response = await DioHelper.putData2(
+        url: ApiConstant.completeRegister,
+        token: ApiConstant.token ?? '',
+        data: formData,
+      );
+
+      if (response?.statusCode == 200) {
+        print(response?.data);
+        emit(CompleteSignUpSuccess());
+      } else {
+        emit(CompleteSignUpFailure(
+            "Failed to complete sign up. Status code: ${response?.statusCode}"));
+      }
+    } catch (error) {
+      print(error.toString());
+      emit(CompleteSignUpFailure("Error: ${error.toString()}"));
+    }
   }
 }

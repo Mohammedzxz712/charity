@@ -18,6 +18,7 @@ import '../../../../../../core/widgets/fun_toast.dart';
 import '../../../../../../core/widgets/progress_indector.dart';
 import '../../../../../../generated/assets.dart';
 import '../logic/login_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   @override
@@ -42,11 +43,15 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           }
           if (state is ResetSuccessState) {
             Navigator.pushNamed(context, AppRoutes.login);
-            toastFun(txt: 'Reset Successfully', state: ToastStates.SUCCESS);
+            toastFun(
+                txt: AppLocalizations.of(context)!.forgetsuccessfully,
+                state: ToastStates.SUCCESS);
           }
 
           if (state is FailureState) {
-            toastFun(txt: 'Try Again', state: ToastStates.ERROR);
+            toastFun(
+                txt: AppLocalizations.of(context)!.tryagain,
+                state: ToastStates.ERROR);
             Navigator.pop(context);
           }
         },
@@ -90,13 +95,16 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                 verticalSpace(40),
                                 customRichText(
                                   context: context,
-                                  textPartOne: 'Reset ',
-                                  textPartTwo: 'Password',
+                                  textPartOne:
+                                      AppLocalizations.of(context)!.reset1,
+                                  textPartTwo:
+                                      AppLocalizations.of(context)!.password,
                                 ),
                                 verticalSpace(40),
-                                const Align(
+                                Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text('Email')),
+                                    child: Text(
+                                        AppLocalizations.of(context)!.email)),
                                 verticalSpace(10),
                                 AppTextFormField(
                                   hintText: 'example@gmail.com',
@@ -108,18 +116,21 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                       vertical: 13, horizontal: 15),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "should enter email";
+                                      return AppLocalizations.of(context)!
+                                          .shouldenteremail;
                                     } else if (!isEmailValid(value)) {
-                                      return 'email must contain @ & .com';
+                                      return AppLocalizations.of(context)!
+                                          .emailmustcontain;
                                     } else {
                                       return null;
                                     }
                                   },
                                 ),
                                 verticalSpace(10),
-                                const Align(
+                                Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text('Password')),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .password)),
                                 verticalSpace(10),
                                 AppTextFormField(
                                   hintText: '***********',
@@ -143,18 +154,21 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                       vertical: 13, horizontal: 15),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "should enter password";
+                                      return AppLocalizations.of(context)!
+                                          .shouldenterpassword;
                                     } else if (!isPasswordValid(value)) {
-                                      return 'Password must include: 0-9, A-Z, a-z, and special characters';
+                                      return AppLocalizations.of(context)!
+                                          .passwordmustinclude;
                                     } else {
                                       return null;
                                     }
                                   },
                                 ),
                                 verticalSpace(6),
-                                const Align(
+                                Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text('Otp')),
+                                    child: Text(
+                                        AppLocalizations.of(context)!.otp)),
                                 verticalSpace(6),
                                 AppTextFormField(
                                   hintText: '******',
@@ -178,7 +192,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                       vertical: 13, horizontal: 15),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "should enter otp";
+                                      return AppLocalizations.of(context)!
+                                          .shouldenterotp;
                                     } else {
                                       return null;
                                     }
@@ -186,7 +201,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                 ),
                                 verticalSpace(16),
                                 AppTextButton(
-                                  buttonText: 'RESET',
+                                  buttonText:
+                                      AppLocalizations.of(context)!.reset,
                                   backgroundColor: ColorsManager.mainColor,
                                   buttonHeight: 44.h,
                                   buttonWidth: 197.w,
@@ -226,88 +242,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       ),
                     ),
                   ),
-                  // child: Form(
-                  //   key: context.read<LoginCubit>().formKey,
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: <Widget>[
-                  //
-                  //       TextFormField(
-                  //         controller: LoginCubit.get(context).emailController,
-                  //         decoration: const InputDecoration(labelText: 'Email'),
-                  //         keyboardType: TextInputType.emailAddress,
-                  //         validator: (value) {
-                  //           if (value == null || value.isEmpty) {
-                  //             return 'Please enter your email';
-                  //           }
-                  //           return null;
-                  //         },
-                  //       ),
-                  //       SizedBox(height: 16.0),
-                  //       TextFormField(
-                  //         controller: LoginCubit.get(context).otpController,
-                  //         decoration: const InputDecoration(labelText: 'OTP'),
-                  //         keyboardType: TextInputType.number,
-                  //         validator: (value) {
-                  //           if (value == null || value.isEmpty) {
-                  //             return 'Please enter the OTP';
-                  //           }
-                  //           return null;
-                  //         },
-                  //       ),
-                  //       SizedBox(height: 16.0),
-                  //       TextFormField(
-                  //         controller: LoginCubit.get(context).passController,
-                  //         decoration:
-                  //             InputDecoration(labelText: 'New Password'),
-                  //         obscureText: true,
-                  //         validator: (value) {
-                  //           if (value == null || value.isEmpty) {
-                  //             return 'Please enter a new password';
-                  //           }
-                  //           return null;
-                  //         },
-                  //       ),
-                  //       const SizedBox(height: 32.0),
-                  //       Center(
-                  //         child: AppTextButton(
-                  //           buttonText: 'Submit',
-                  //           backgroundColor: ColorsManager.mainColor,
-                  //           buttonHeight: 44.h,
-                  //           buttonWidth: 197.w,
-                  //           textStyle: const TextStyle(
-                  //             color: ColorsManager.white,
-                  //           ),
-                  //           onPressed: () {
-                  //             if (context
-                  //                 .read<LoginCubit>()
-                  //                 .formKey
-                  //                 .currentState!
-                  //                 .validate()) {
-                  //               LoginCubit.get(context).resetPassword(
-                  //                 email: context
-                  //                     .read<LoginCubit>()
-                  //                     .emailController
-                  //                     .text
-                  //                     .trim(),
-                  //                 password: context
-                  //                     .read<LoginCubit>()
-                  //                     .passController
-                  //                     .text
-                  //                     .trim(),
-                  //                 otp: context
-                  //                     .read<LoginCubit>()
-                  //                     .otpController
-                  //                     .text
-                  //                     .trim(),
-                  //               );
-                  //             }
-                  //           },
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                 ),
               ],
             ),

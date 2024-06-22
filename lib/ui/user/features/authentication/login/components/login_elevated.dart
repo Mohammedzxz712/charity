@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginElevated extends StatelessWidget {
   final Function onPress; // Make sure to declare onPress as final
@@ -18,7 +19,8 @@ class LoginElevated extends StatelessWidget {
           ),
         ),
       ),
-      child: const Text('LOGIN', style: TextStyle(color: Colors.white)),
+      child: Text(AppLocalizations.of(context)!.login,
+          style: TextStyle(color: Colors.white)),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../config/colors/app_colors.dart';
 import '../../../../../../config/routes/routes.dart';
 import '../../../../../core/widgets/build_rich_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChoiseScreen extends StatelessWidget {
   const ChoiseScreen({super.key});
@@ -29,12 +30,12 @@ class ChoiseScreen extends StatelessWidget {
                 children: [
                   customRichText(
                     context: context,
-                    textPartOne: 'Chari',
-                    textPartTwo: 'ty',
+                    textPartOne: AppLocalizations.of(context)!.cha,
+                    textPartTwo: AppLocalizations.of(context)!.rity,
                   ),
                   verticalSpace(30),
                   AppTextButton(
-                    buttonText: 'LOGIN',
+                    buttonText: AppLocalizations.of(context)!.login,
                     borderSide: const BorderSide(color: ColorsManager.black),
                     textStyle: const TextStyle(
                       color: ColorsManager.black,
@@ -46,7 +47,7 @@ class ChoiseScreen extends StatelessWidget {
                   ),
                   verticalSpace(20),
                   AppTextButton(
-                    buttonText: 'SIGN UP',
+                    buttonText: AppLocalizations.of(context)!.signup,
                     textStyle: const TextStyle(
                       color: ColorsManager.white,
                     ),

@@ -73,7 +73,7 @@ class BuildCategory extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
@@ -84,7 +84,6 @@ class BuildCategory extends StatelessWidget {
                                     fontSize: 16,
                                     height: 1.2,
                                   ),
-                                  textDirection: TextDirection.rtl,
                                 ),
                                 Gap(5.h),
                                 Text(
@@ -96,7 +95,6 @@ class BuildCategory extends StatelessWidget {
                                     height: 1.3,
                                   ),
                                   maxLines: 2,
-                                  textDirection: TextDirection.rtl,
                                 ),
                               ],
                             ),

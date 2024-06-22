@@ -1,19 +1,20 @@
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:charity/core/api/api_constant.dart';
 import 'package:charity/core/cache/cache_helper.dart';
 import 'package:charity/core/helpers/exetinsions.dart';
 import 'package:charity/ui/user/features/home/component/bottom_nav.dart';
-import 'package:charity/ui/user/features/one_organization/logic/cubit.dart';
+import 'package:charity/ui/user/features/home/component/compine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../../../config/routes/routes.dart';
 import '../../../../../core/widgets/custome_app_bar.dart';
 import '../../../../../core/widgets/progress_indector.dart';
-import '../../../../../generated/assets.dart';
 import '../../one_organization/screens/organization_desc.dart';
 import '../component/build_cat.dart';
 import '../component/drawer.dart';
-import '../data/model/index.dart';
 import '../logic/cubit.dart';
 import '../logic/states.dart';
 
@@ -28,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool isDrawerOpen = false;
+  final CarouselController _carouselController = CarouselController();
+  int _current = 0;
 
   @override
   void initState() {
@@ -41,7 +44,9 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getHomeData(),
+      create: (context) => HomeCubit()
+        ..getHomeData()
+        ..getCombine(),
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {
           if (state is HomeLoadingState) {
@@ -56,8 +61,9 @@ class _HomeScreenState extends State<HomeScreen>
         builder: (context, state) {
           var organizations =
               context.read<HomeCubit>().getAllOrganizationsModel?.organizations;
+          var campaigns = context.read<HomeCubit>().campModel?.allCampaign;
 
-          if (organizations == null) {
+          if (organizations == null || campaigns == null) {
             return Scaffold(
               appBar: CustomMainAppBar(
                 isDrawerOpen: isDrawerOpen,
@@ -100,15 +106,43 @@ class _HomeScreenState extends State<HomeScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'HELP OUR INSTITUTIONS',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 22),
-                        ),
-                        const Gap(5),
-                        const Text(
-                          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr Lorem ipsum \ndolor sit amet, consetetur sadipscing elitr',
-                          style: TextStyle(color: Colors.grey, height: 1.2),
+                        Container(
+                          height: 170.h,
+                          child: CarouselSlider.builder(
+                            itemCount: campaigns.length,
+                            itemBuilder:
+                                (BuildContext context, int index, int realIdx) {
+                              return InkWell(
+                                onTap: () {
+                                  // Add your navigation logic here
+                                },
+                                child: CombineScreen(
+                                  imageAsset:
+                                      'https://charityorg.life/storage/app/public/assets/uploads/Campaign/${campaigns[index].image}' ??
+                                          "",
+                                  title: campaigns[index].title ?? "",
+                                  amount: campaigns[index].targetAmount ?? "",
+                                  description:
+                                      campaigns[index].description ?? "",
+                                  endDate: campaigns[index].endDate ?? "",
+                                ),
+                              );
+                            },
+                            carouselController: _carouselController,
+                            options: CarouselOptions(
+                              autoPlay: true,
+                              autoPlayAnimationDuration:
+                                  const Duration(seconds: 1),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              autoPlayInterval: const Duration(seconds: 3),
+                              height: 165.h,
+                              enableInfiniteScroll: true,
+                              initialPage: 0,
+                              reverse: false,
+                              scrollDirection: Axis.horizontal,
+                              viewportFraction: 1,
+                            ),
+                          ),
                         ),
                         const Gap(5),
                         ListView.separated(
@@ -148,7 +182,9 @@ class _HomeScreenState extends State<HomeScreen>
                       _navigateAndCloseDrawer(AppRoutes.support),
                   onSignOutTap: () {
                     CacheHelper.removeData(key: 'token');
+                    CacheHelper.removeData(key: 'id');
                     ApiConstant.token = null;
+                    ApiConstant.id = null;
                     _navigateAndCloseDrawer(AppRoutes.login);
                   },
                 ),

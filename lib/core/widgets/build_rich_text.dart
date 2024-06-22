@@ -24,4 +24,5 @@ Widget customRichText({
           )
         ],
       ),
+      locale: Locale('ar'),
     );

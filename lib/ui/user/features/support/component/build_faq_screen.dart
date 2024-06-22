@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/colors/app_colors.dart';
 import '../screen/review_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BuildFaqScreen extends StatelessWidget {
   const BuildFaqScreen({super.key});
@@ -16,7 +17,13 @@ class BuildFaqScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SupportCubit, SupportState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is GetReviewsSuccessState) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ReviewsScreen(),
+              ));
+        }
       },
       builder: (context, state) {
         return SingleChildScrollView(
@@ -30,16 +37,17 @@ class BuildFaqScreen extends StatelessWidget {
                     inputTextStyle: const TextStyle(color: ColorsManager.black),
                     maxLines: 4,
                     controller: SupportCubit.get(context).problemController,
-                    hintText: 'Write Your Review........',
+                    hintText: AppLocalizations.of(context)!.writeyourreview,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your review';
+                        return AppLocalizations.of(context)!
+                            .pleaseenteryourreview;
                       }
                       return null;
                     }),
                 verticalSpace(20),
                 AppTextButton(
-                    buttonText: 'SEND',
+                    buttonText: AppLocalizations.of(context)!.send,
                     textStyle: const TextStyle(
                       color: ColorsManager.white,
                     ),
@@ -49,16 +57,10 @@ class BuildFaqScreen extends StatelessWidget {
                           text:
                               SupportCubit.get(context).problemController.text,
                           useId: ApiConstant.id ?? 0);
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ReviewsScreen(),
-                          ));
                     }),
                 verticalSpace(20),
                 AppTextButton(
-                    buttonText: 'REVIEWS',
+                    buttonText: AppLocalizations.of(context)!.reviews,
                     textStyle: const TextStyle(
                       color: ColorsManager.white,
                     ),

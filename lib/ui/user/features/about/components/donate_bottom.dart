@@ -2,6 +2,7 @@ import 'package:charity/core/helpers/exetinsions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../config/routes/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DonateBottom extends StatelessWidget {
   const DonateBottom({super.key});
@@ -29,8 +30,8 @@ class DonateBottom extends StatelessWidget {
           onPressed: () {
             context.pushNamed(AppRoutes.home);
           },
-          child: const Text(
-            'DONATE NOW',
+          child: Text(
+            AppLocalizations.of(context)!.donatenow,
             style: TextStyle(color: Colors.green),
           ),
         ),

@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:charity/ui/user/features/support/logic/support_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../generated/assets.dart';
 import '../data/model/AllReview.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewsScreen extends StatelessWidget {
   const ReviewsScreen({super.key});
@@ -23,7 +26,7 @@ class ReviewsScreen extends StatelessWidget {
             final reviews = context.read<SupportCubit>().reviewList;
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Reviews'),
+                title: Text(AppLocalizations.of(context)!.reviews),
               ),
               body: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -52,8 +55,11 @@ class ReviewsScreen extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
-        leading: const CircleAvatar(
-          backgroundImage: NetworkImage(''), // Add image profile
+        leading: CircleAvatar(
+          backgroundImage: review.user_image != null
+              ? CachedNetworkImageProvider(
+                  'https://charityorg.life/storage/app/${review.user_image}')
+              : const AssetImage(Assets.imagesImg) as ImageProvider,
         ),
         title: Text(
           review.userName ?? '',
@@ -64,12 +70,14 @@ class ReviewsScreen extends StatelessWidget {
           children: [
             Text(review.text ?? ''),
             const SizedBox(height: 8),
-            const Row(
+            Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 Text(
-                  '12/12/2022', // Add review date
-                  style: TextStyle(color: Colors.grey),
+                  review.date != null && review.date!.length > 10
+                      ? review.date!.substring(0, 10)
+                      : (review.date ?? ''), // Add review date
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ],
             ),

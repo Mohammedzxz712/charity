@@ -27,7 +27,7 @@ void main() async {
   print(ApiConstant.id);
 
   runApp(CharityApp(
-    initialWidget: token == null ? ChoiseScreen() : HomeScreen(),
+    initialWidget: token == null ? const ChoiseScreen() : const HomeScreen(),
     routes: AppRouter(),
   ));
 }
