@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void toastFun({
@@ -12,7 +13,7 @@ void toastFun({
       timeInSecForIosWeb: 5,
       backgroundColor: toastColor(state),
       textColor: Colors.white,
-      fontSize: 16.0);
+      fontSize: 16.0.sp);
 }
 
 enum ToastStates { ERROR, WARNING, SUCCESS }

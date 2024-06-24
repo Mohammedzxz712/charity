@@ -44,7 +44,7 @@ class CustomTwoTextFromField extends StatelessWidget {
           height: 47.h,
           decoration: BoxDecoration(
             color: ColorsManager.lighterGray,
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(15.r),
           ),
           child: CustomTextFormField(
             isPassword: isPass,
@@ -64,12 +64,12 @@ class CustomTwoTextFromField extends StatelessWidget {
               }
             },
             prefixIcon: prefixIcon1,
-            edgeInsetsGeometry: const EdgeInsets.symmetric(
-              vertical: 15,
+            edgeInsetsGeometry:  EdgeInsets.symmetric(
+              vertical: 15.h,
             ),
           ),
         ),
-        const Gap(20),
+         Gap(20.h),
         Container(
           width: AppConstant.deviceWidth(context),
           height: 47.h,
@@ -95,8 +95,8 @@ class CustomTwoTextFromField extends StatelessWidget {
             label: label2,
             hint: hint2,
             prefixIcon: prefixIcon2,
-            edgeInsetsGeometry: const EdgeInsets.symmetric(
-              vertical: 15,
+            edgeInsetsGeometry:  EdgeInsets.symmetric(
+              vertical: 15.h,
             ),
           ),
         ),

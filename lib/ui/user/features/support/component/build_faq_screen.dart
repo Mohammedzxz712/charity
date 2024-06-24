@@ -31,7 +31,7 @@ class BuildFaqScreen extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
-                verticalSpace(20),
+                verticalSpace(20.h),
                 AppTextFormField(
                     backgroundColor: ColorsManager.lighterGray,
                     inputTextStyle: const TextStyle(color: ColorsManager.black),
@@ -45,7 +45,7 @@ class BuildFaqScreen extends StatelessWidget {
                       }
                       return null;
                     }),
-                verticalSpace(20),
+                verticalSpace(20.h),
                 AppTextButton(
                     buttonText: AppLocalizations.of(context)!.send,
                     textStyle: const TextStyle(

@@ -92,7 +92,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                verticalSpace(40),
+                                verticalSpace(40.h),
                                 customRichText(
                                   context: context,
                                   textPartOne:
@@ -100,20 +100,20 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                   textPartTwo:
                                       AppLocalizations.of(context)!.password,
                                 ),
-                                verticalSpace(40),
+                                verticalSpace(40.h),
                                 Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                         AppLocalizations.of(context)!.email)),
-                                verticalSpace(10),
+                                verticalSpace(10.h),
                                 AppTextFormField(
                                   hintText: 'example@gmail.com',
                                   keyboardType: TextInputType.emailAddress,
                                   controller: context
                                       .read<LoginCubit>()
                                       .emailController,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 13, horizontal: 15),
+                                  contentPadding:  EdgeInsets.symmetric(
+                                      vertical: 13.h, horizontal: 15.w),
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return AppLocalizations.of(context)!
@@ -126,12 +126,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                     }
                                   },
                                 ),
-                                verticalSpace(10),
+                                verticalSpace(10.h),
                                 Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(AppLocalizations.of(context)!
                                         .password)),
-                                verticalSpace(10),
+                                verticalSpace(10.h),
                                 AppTextFormField(
                                   hintText: '***********',
                                   controller:
@@ -150,8 +150,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                     ),
                                   ),
                                   isObscureText: isObscureText,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 13, horizontal: 15),
+                                  contentPadding:  EdgeInsets.symmetric(
+                                      vertical: 13.h, horizontal: 15.w),
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return AppLocalizations.of(context)!
@@ -164,12 +164,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                     }
                                   },
                                 ),
-                                verticalSpace(6),
+                                verticalSpace(6.h),
                                 Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                         AppLocalizations.of(context)!.otp)),
-                                verticalSpace(6),
+                                verticalSpace(6.h),
                                 AppTextFormField(
                                   hintText: '******',
                                   controller:
@@ -188,8 +188,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                     ),
                                   ),
                                   isObscureText: isObscureText,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 13, horizontal: 15),
+                                  contentPadding:  EdgeInsets.symmetric(
+                                      vertical: 13.h, horizontal: 15.w),
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return AppLocalizations.of(context)!
@@ -199,7 +199,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                     }
                                   },
                                 ),
-                                verticalSpace(16),
+                                verticalSpace(16.h),
                                 AppTextButton(
                                   buttonText:
                                       AppLocalizations.of(context)!.reset,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import '../../config/colors/app_colors.dart';
 
@@ -7,10 +8,10 @@ class CustomLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return  Center(
       child: SizedBox(
-        width: 50,
-        height: 50,
+        width: 50.w,
+        height: 50.h,
         child: LoadingIndicator(
           indicatorType: Indicator.ballRotateChase,
           colors: [

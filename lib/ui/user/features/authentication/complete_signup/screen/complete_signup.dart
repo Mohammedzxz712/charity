@@ -72,7 +72,7 @@ class CompleteSignUp extends StatelessWidget {
                                       as ImageProvider,
                             ),
                             CircleAvatar(
-                              radius: 20,
+                              radius: 20.r,
                               backgroundColor: ColorsManager.mainColor,
                               child: IconButton(
                                 icon: const Icon(Icons.camera_alt_outlined,
@@ -84,18 +84,18 @@ class CompleteSignUp extends StatelessWidget {
                             ),
                           ],
                         ),
-                        verticalSpace(10),
+                        verticalSpace(10.h),
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(AppLocalizations.of(context)!.phone),
                         ),
-                        verticalSpace(10),
+                        verticalSpace(10.h),
                         AppTextFormField(
                           hintText: '01000000000',
                           controller: cubit.phoneController,
                           keyboardType: TextInputType.phone,
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 13, horizontal: 15),
+                          contentPadding:  EdgeInsets.symmetric(
+                              vertical: 13.h, horizontal: 15.w),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return AppLocalizations.of(context)!
@@ -104,12 +104,12 @@ class CompleteSignUp extends StatelessWidget {
                             return null;
                           },
                         ),
-                        verticalSpace(10),
+                        verticalSpace(10.h),
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(AppLocalizations.of(context)!.location),
                         ),
-                        verticalSpace(10),
+                        verticalSpace(10.h),
                         AppTextFormField(
                           hintText: AppLocalizations.of(context)!.location,
                           keyboardType: TextInputType.text,
@@ -119,8 +119,8 @@ class CompleteSignUp extends StatelessWidget {
                             child: const Icon(Icons.location_on_outlined,
                                 size: 25),
                           ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 13, horizontal: 15),
+                          contentPadding:  EdgeInsets.symmetric(
+                              vertical: 13.h, horizontal: 15.w),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return AppLocalizations.of(context)!
@@ -129,7 +129,7 @@ class CompleteSignUp extends StatelessWidget {
                             return null;
                           },
                         ),
-                        verticalSpace(25),
+                        verticalSpace(25.h),
                         AppTextButton(
                           buttonText: AppLocalizations.of(context)!.signup,
                           backgroundColor: ColorsManager.mainColor,

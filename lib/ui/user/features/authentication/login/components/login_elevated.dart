@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginElevated extends StatelessWidget {
   final Function onPress; // Make sure to declare onPress as final
@@ -15,7 +16,7 @@ class LoginElevated extends StatelessWidget {
         ),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(15.r),
           ),
         ),
       ),

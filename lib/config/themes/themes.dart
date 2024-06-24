@@ -40,7 +40,7 @@ class AppTheme {
       elevation: 20,
     ),
     textTheme: const TextTheme(
-      bodyText1: TextStyle(
+        bodyLarge: TextStyle(
         fontWeight: FontWeight.w600,
         fontSize: 18,
         color: Colors.white,

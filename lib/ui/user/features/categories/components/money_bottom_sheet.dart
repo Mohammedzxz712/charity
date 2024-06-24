@@ -1,11 +1,13 @@
+import 'package:charity/ui/user/features/payment/new_paymob/new_paymop_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/widgets/app_text_form_field.dart';
 import '../../payment/paymob/paymop_manager.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class MoneyDonationBottomSheet extends StatefulWidget {
   const MoneyDonationBottomSheet({Key? key}) : super(key: key);
 
@@ -54,38 +56,38 @@ class _MoneyDonationBottomSheetState extends State<MoneyDonationBottomSheet>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Gap(22),
-          const Align(
+           Gap(22.h),
+           Align(
             alignment: Alignment.center,
             child: Text(
-              'Money Donation Details',
+              AppLocalizations.of(context)!.moneydonationdetails,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          const SizedBox(height: 28),
+           SizedBox(height: 28.h),
           SizedBox(
             width: fieldWidth,
             child: AppTextFormField(
               controller: amountController,
               prefixIcon: const Icon(Icons.monetization_on_outlined),
-              hintText: 'AMOUNT',
+              hintText: AppLocalizations.of(context)!.amount,
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly,
               ],
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter the payment amount';
+                  return AppLocalizations.of(context)!.pleaseenterthepaymentamount;
                 }
                 return null;
               },
             ),
           ),
-          const SizedBox(height: 10),
+           SizedBox(height: 10.h),
           Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
@@ -103,8 +105,8 @@ class _MoneyDonationBottomSheetState extends State<MoneyDonationBottomSheet>
                   ),
                 ),
               ),
-              child: const Text(
-                'SUBMIT',
+              child:  Text(
+                AppLocalizations.of(context)!.submit,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -116,11 +118,15 @@ class _MoneyDonationBottomSheetState extends State<MoneyDonationBottomSheet>
 }
 
 Future<void> _pay(int amount) async {
-  PaymobManager().getPaymentKey(amount, "EGP").then((String paymentKey) {
-    launchUrl(
-      Uri.parse(
-          "https://accept.paymob.com/api/acceptance/iframes/847996?payment_token=$paymentKey"),
-      //https://accept.paymob.com/api/acceptance/iframes/847996?payment_token={payment_key_obtained_previously}
-    );
-  });
+  try {
+    NewPaymobManager().newGetPaymentKey(amount, "EGP").then((String paymentKey){
+      launchUrl(
+        Uri.parse(
+            "https://accept.paymob.com/api/acceptance/iframes/852844?payment_token=$paymentKey"),
+      );
+    });
+
+  } catch (error) {
+    throw 'Could not launch payment URL: $error';
+  }
 }

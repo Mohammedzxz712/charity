@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:path/path.dart';
 
 import '../../../../../core/api/api_constant.dart';
 import '../../../../../core/api/dio_helper.dart';
@@ -26,6 +25,29 @@ class EdietCubit extends Cubit<EdietState> {
 
   static EdietCubit get(context) => BlocProvider.of(context);
 
+  void initControllers() {
+    nameController.addListener(() {
+      if (GetProfileModel != null) {
+        GetProfileModel!.name = nameController.text;
+      }
+    });
+    emailController.addListener(() {
+      if (GetProfileModel != null) {
+        GetProfileModel!.email = emailController.text;
+      }
+    });
+    phoneController.addListener(() {
+      if (GetProfileModel != null) {
+        GetProfileModel!.phone = phoneController.text;
+      }
+    });
+    locationController.addListener(() {
+      if (GetProfileModel != null) {
+        GetProfileModel!.location = locationController.text;
+      }
+    });
+  }
+
   void getUserData() {
     emit(LoadingState());
     DioHelper.getData(
@@ -33,27 +55,31 @@ class EdietCubit extends Cubit<EdietState> {
       token: ApiConstant.token,
     ).then((response) {
       if (response?.statusCode == 200) {
-        // Assuming the response body is a map
         Map<String, dynamic> responseBody = response?.data;
-
-        // Check if the response contains the expected data
         if (responseBody.containsKey("id")) {
-          // Parse the data accordingly
           GetProfileModel = GetProfile.fromJson(responseBody);
-          print(GetProfileModel!.name);
+          nameController.text = GetProfileModel!.name ?? '';
+          emailController.text = GetProfileModel!.email ?? '';
+          phoneController.text = GetProfileModel!.phone ?? '';
+          locationController.text = GetProfileModel!.location ?? '';
+          initControllers();
           emit(GetSuccessState());
         } else {
-          // Handle the case when the response does not contain the expected data
           emit(FailureState(error: "Response does not contain 'id'"));
         }
       } else {
-        // Handle HTTP errors
         emit(FailureState(error: "HTTP Error: ${response?.statusCode}"));
       }
     }).catchError((error) {
-      print(error.toString());
       emit(FailureState(error: error.toString()));
     });
+  }
+
+  void clearTextFields() {
+    nameController.clear();
+    emailController.clear();
+    phoneController.clear();
+    locationController.clear();
   }
 
   File? profilePhoto;
@@ -70,22 +96,21 @@ class EdietCubit extends Cubit<EdietState> {
   }
 
   void updateUserData(
-    String name,
-    String email,
-    String phone,
-    String location,
-    File? profilePhoto,
-  ) async {
+      String name,
+      String email,
+      String phone,
+      String location,
+      File? profilePhoto,
+      ) async {
     emit(LoadingUpdateState());
 
     try {
-      // Create FormData
       FormData formData = FormData.fromMap({
         "name": name,
         "phone": phone,
         "email": email,
         "location": location,
-        "_method": "PUT", // Ensure the backend recognizes the update method
+        "_method": "PUT",
       });
 
       if (profilePhoto != null) {
@@ -96,7 +121,6 @@ class EdietCubit extends Cubit<EdietState> {
         ));
       }
 
-      // Send the request using putData2
       Response? response = await DioHelper.putData2(
         url: ApiConstant.updateProfile,
         token: ApiConstant.token ?? '',
@@ -104,47 +128,16 @@ class EdietCubit extends Cubit<EdietState> {
       );
 
       if (response?.statusCode == 200) {
+        clearTextFields(); // Clear the text fields after successful update
         getUserData();
-        print(response?.data);
         emit(UpdateUserDataSuccessState());
       } else {
         emit(FailureState(
             error:
-                "Failed to update profile. Status code: ${response?.statusCode}"));
+            "Failed to update profile. Status code: ${response?.statusCode}"));
       }
     } catch (error) {
-      print(error.toString());
       emit(FailureState(error: error.toString()));
     }
   }
-
-// void updateUserData(
-  //   String name,
-  //   String email,
-  //   String phone,
-  //   String location,
-  //   File? profilePhoto,
-  // ) async {
-  //   emit(LoadingUpdateState());
-  //   DioHelper.putData(
-  //     url: ApiConstant.updateProfile,
-  //     token: ApiConstant.token ?? '',
-  //     data: {
-  //       "name": name,
-  //       "phone": phone,
-  //       "email": email,
-  //       "location": location,
-  //       if (profilePhoto != null)
-  //         "image": await MultipartFile.fromFile(profilePhoto.path,
-  //             filename: path.basename(profilePhoto.path)),
-  //     },
-  //   ).then((value) {
-  //     getUserData();
-  //     print(value?.data);
-  //     emit(UpdateUserDataSuccessState());
-  //   }).catchError((error) {
-  //     print(error.toString());
-  //     emit(FailureState(error: error.toString()));
-  //   });
-  // }
 }

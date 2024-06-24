@@ -38,7 +38,7 @@ class CombineScreen extends StatelessWidget {
               vertical: 10.h,
             ),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24.0),
+              borderRadius: BorderRadius.circular(24.0.r),
               image: const DecorationImage(
                 image: AssetImage(Assets.imagesFirist),
                 fit: BoxFit.cover,
@@ -77,11 +77,11 @@ class CombineScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.black,
                         ),
-                        child: const Text('تبرع الان',
+                        child:  Text('تبرع الان',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 18.sp,
                             )),
                       ),
                     ),
@@ -102,6 +102,7 @@ class CombineScreen extends StatelessWidget {
             top: 15.h,
             bottom: 2,
             child: CachedNetworkImage(
+
               imageUrl: imageAsset, // Replace with your image URL
               placeholder: (context, url) =>
                   CircularProgressIndicator(), // Optional placeholder widget while loading

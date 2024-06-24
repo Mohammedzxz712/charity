@@ -76,7 +76,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            verticalSpace(40),
+                            verticalSpace(40.h),
                             Align(
                               alignment: Alignment.center,
                               child: customRichText(
@@ -86,7 +86,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                 textPartTwo: AppLocalizations.of(context)!.up1,
                               ),
                             ),
-                            verticalSpace(40),
+                            verticalSpace(40.h),
                             Text(
                               AppLocalizations.of(context)!.fullname,
                             ),
@@ -95,8 +95,8 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                               keyboardType: TextInputType.name,
                               controller:
                                   context.read<SignUpCubit>().nameController,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 13, horizontal: 15),
+                              contentPadding:  EdgeInsets.symmetric(
+                                  vertical: 13.h, horizontal: 15.w),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return AppLocalizations.of(context)!
@@ -106,15 +106,15 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                 }
                               },
                             ),
-                            verticalSpace(10),
+                            verticalSpace(10.h),
                             Text(AppLocalizations.of(context)!.email),
                             AppTextFormField(
                               hintText: 'example@gmail.com',
                               keyboardType: TextInputType.emailAddress,
                               controller:
                                   context.read<SignUpCubit>().emailController,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 13, horizontal: 15),
+                              contentPadding:  EdgeInsets.symmetric(
+                                  vertical: 13.h, horizontal: 15.w),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return AppLocalizations.of(context)!.email;
@@ -126,7 +126,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                 }
                               },
                             ),
-                            verticalSpace(10),
+                            verticalSpace(10.h),
                             Text(AppLocalizations.of(context)!.password),
                             AppTextFormField(
                               hintText: '##########',
@@ -148,8 +148,8 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                       : Icons.visibility,
                                 ),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 13, horizontal: 15),
+                              contentPadding:  EdgeInsets.symmetric(
+                                  vertical: 13.h, horizontal: 15.w),
                               isObscureText:
                                   context.read<SignUpCubit>().isObscureText,
                               validator: (value) {
@@ -163,7 +163,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                 }
                               },
                             ),
-                            verticalSpace(10),
+                            verticalSpace(10.h),
                             Text(AppLocalizations.of(context)!.confirmpassword),
                             AppTextFormField(
                               hintText: '##########',
@@ -186,8 +186,8 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                       : Icons.visibility,
                                 ),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 13, horizontal: 15),
+                              contentPadding:  EdgeInsets.symmetric(
+                                  vertical: 13.h, horizontal: 15.w),
                               isObscureText:
                                   context.read<SignUpCubit>().isObscureText,
                               validator: (value) {
@@ -209,7 +209,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                 }
                               },
                             ),
-                            verticalSpace(10),
+                            verticalSpace(10.h),
                             Align(
                               alignment: Alignment.center,
                               child: AppTextButton(
@@ -245,7 +245,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                                 },
                               ),
                             ),
-                            verticalSpace(20),
+                            verticalSpace(20.h),
                             customTextNextToTextButton(
                               context: context,
                               text: AppLocalizations.of(context)!

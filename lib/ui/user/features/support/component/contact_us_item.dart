@@ -15,7 +15,7 @@ class ContactUsItem extends StatelessWidget {
       style: ButtonStyle(
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
             side: const BorderSide(
               color: Color(0xff1DD56C),
             ),

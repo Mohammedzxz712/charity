@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/colors/app_colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -73,7 +74,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
         key: formFieldKey,
-        style: const TextStyle(height: .1),
+        style:  TextStyle(height: .1.h),
         scrollController: scrollController,
         obscureText: isPassword,
         keyboardType: type,

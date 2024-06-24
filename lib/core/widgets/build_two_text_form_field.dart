@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../../../../core/methods/pass_validate/pass_validate.dart';
 import '../../../../../../core/methods/validate_email/vaildate_email.dart';
@@ -41,7 +42,7 @@ class CustomTwoTextFromField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label1),
-        const Gap(10),
+         Gap(10.h),
         CustomTextFormField(
           isPassword: isPass,
           maxLine: 1,
@@ -49,7 +50,7 @@ class CustomTwoTextFromField extends StatelessWidget {
           filled: filled,
           fillColor: fillColor,
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10.r),
               borderSide: const BorderSide(color: Colors.grey)),
           label: label1,
           hint: hint1,
@@ -63,13 +64,13 @@ class CustomTwoTextFromField extends StatelessWidget {
             }
           },
           prefixIcon: prefixIcon1,
-          edgeInsetsGeometry: const EdgeInsets.symmetric(
-            vertical: 15,
+          edgeInsetsGeometry:  EdgeInsets.symmetric(
+            vertical: 15.h,
           ),
         ),
-        const Gap(10),
+         Gap(10.h),
         Text(label2),
-        const Gap(10),
+         Gap(10.h),
         CustomTextFormField(
           isPassword: isPass2,
           maxLine: 1,
@@ -87,12 +88,12 @@ class CustomTwoTextFromField extends StatelessWidget {
             }
           },
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10.r),
               borderSide: BorderSide(color: Colors.grey)),
           label: label2,
           prefixIcon: prefixIcon2,
-          edgeInsetsGeometry: const EdgeInsets.symmetric(
-            vertical: 15,
+          edgeInsetsGeometry:  EdgeInsets.symmetric(
+            vertical: 15.h,
           ),
         ),
       ],

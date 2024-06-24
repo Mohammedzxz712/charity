@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDrawer extends StatelessWidget {
   final bool isDrawerOpen;
@@ -35,9 +36,9 @@ class CustomDrawer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.8),
         border: Border.all(color: Colors.grey),
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(20.0),
-          bottomRight: Radius.circular(20.0),
+        borderRadius:  BorderRadius.only(
+          topRight: Radius.circular(20.0.r),
+          bottomRight: Radius.circular(20.0.r),
         ),
       ),
       child: Column(

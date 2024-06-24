@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:charity/ui/user/features/support/logic/support_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../generated/assets.dart';
 import '../data/model/AllReview.dart';
@@ -53,7 +54,7 @@ class ReviewsScreen extends StatelessWidget {
       return const SizedBox(); // Return an empty widget if review is null
     }
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      margin:  EdgeInsets.symmetric(vertical: 8.0.h),
       child: ListTile(
         leading: CircleAvatar(
           backgroundImage: review.user_image != null
@@ -69,7 +70,7 @@ class ReviewsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(review.text ?? ''),
-            const SizedBox(height: 8),
+             SizedBox(height: 8.h),
             Row(
               children: [
                 const Spacer(),

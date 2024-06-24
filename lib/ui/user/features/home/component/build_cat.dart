@@ -23,16 +23,16 @@ class BuildCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 201,
-      width: 373,
+      height: 201.h,
+      width: 373.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
       ),
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
             child: CachedNetworkImage(
               imageUrl: imageAsset,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
@@ -78,21 +78,21 @@ class BuildCategory extends StatelessWidget {
                               children: [
                                 Text(
                                   title,
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    height: 1.2,
+                                    fontSize: 16.sp,
+                                    height: 1.2.h,
                                   ),
                                 ),
                                 Gap(5.h),
                                 Text(
                                   description,
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                     color: ColorsManager.lighterGray,
                                     overflow: TextOverflow.ellipsis,
-                                    fontSize: 14,
-                                    height: 1.3,
+                                    fontSize: 14.sp,
+                                    height: 1.3.h,
                                   ),
                                   maxLines: 2,
                                 ),

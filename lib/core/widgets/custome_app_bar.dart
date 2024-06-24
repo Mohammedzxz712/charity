@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../config/routes/routes.dart';
@@ -17,7 +18,7 @@ class CustomMainAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<CustomMainAppBar> createState() => _CustomMainAppBarState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(56.0);
+  Size get preferredSize =>  Size.fromHeight(56.0.h);
 }
 
 class _CustomMainAppBarState extends State<CustomMainAppBar>

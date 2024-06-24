@@ -33,7 +33,7 @@ class ChoiseScreen extends StatelessWidget {
                     textPartOne: AppLocalizations.of(context)!.cha,
                     textPartTwo: AppLocalizations.of(context)!.rity,
                   ),
-                  verticalSpace(30),
+                  verticalSpace(30.h),
                   AppTextButton(
                     buttonText: AppLocalizations.of(context)!.login,
                     borderSide: const BorderSide(color: ColorsManager.black),
@@ -45,7 +45,7 @@ class ChoiseScreen extends StatelessWidget {
                     buttonHeight: 44.h,
                     backgroundColor: ColorsManager.semiGray,
                   ),
-                  verticalSpace(20),
+                  verticalSpace(20.h),
                   AppTextButton(
                     buttonText: AppLocalizations.of(context)!.signup,
                     textStyle: const TextStyle(

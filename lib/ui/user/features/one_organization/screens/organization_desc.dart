@@ -76,32 +76,32 @@ class OrganizationDetailScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Gap(8),
+                           Gap(8.h),
                           Text(
                             organization?.organization?.description ?? '',
-                            style: const TextStyle(
-                              fontSize: 13,
+                            style:  TextStyle(
+                              fontSize: 13.sp,
                               color: Colors.grey,
                             ),
                             textAlign: TextAlign.right,
                             textDirection: TextDirection.rtl,
                           ),
-                          const Gap(16),
+                           Gap(16.h),
                           InfoRow(
                             icon: Icons.phone,
                             text: organization?.organization?.phoneNumber ?? '',
                           ),
-                          const Gap(8),
+                           Gap(8.h),
                           InfoRow(
                             icon: Icons.location_on,
                             text: organization?.organization?.address ?? '',
                           ),
-                          const Gap(8),
+                           Gap(8.h),
                           InfoRow(
                             icon: Icons.email,
                             text: organization?.organization?.email ?? '',
                           ),
-                          const Gap(16),
+                           Gap(16.h),
                         ],
                       ),
                     )

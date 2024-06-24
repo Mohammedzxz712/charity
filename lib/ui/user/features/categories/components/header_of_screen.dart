@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/helpers/spacing.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Header extends StatelessWidget {
   const Header({
     super.key,
@@ -13,16 +14,16 @@ class Header extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            text: 'CHAR',
+            text: AppLocalizations.of(context)!.cha,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: 30,
+                  fontSize: 30.sp,
                   fontWeight: FontWeight.bold,
                 ),
             children: [
               TextSpan(
-                text: 'ITY',
+                text: AppLocalizations.of(context)!.rity,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 30,
+                      fontSize: 30.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
@@ -30,14 +31,14 @@ class Header extends StatelessWidget {
             ],
           ),
         ),
-        const Text(
-          'CATEGORIES',
+         Text(
+          AppLocalizations.of(context)!.categories,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 18.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
-        verticalSpace(20),
+        verticalSpace(20.h),
       ],
     );
   }

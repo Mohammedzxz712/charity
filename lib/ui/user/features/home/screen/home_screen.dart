@@ -107,8 +107,10 @@ class _HomeScreenState extends State<HomeScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
+
                           height: 170.h,
                           child: CarouselSlider.builder(
+                            
                             itemCount: campaigns.length,
                             itemBuilder:
                                 (BuildContext context, int index, int realIdx) {
@@ -117,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   // Add your navigation logic here
                                 },
                                 child: CombineScreen(
+
                                   imageAsset:
                                       'https://charityorg.life/storage/app/public/assets/uploads/Campaign/${campaigns[index].image}' ??
                                           "",
@@ -144,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen>
                             ),
                           ),
                         ),
-                        const Gap(5),
+                         Gap(5.h),
                         ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),

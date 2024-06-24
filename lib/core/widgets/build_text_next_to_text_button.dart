@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/widgets/custom_text_button.dart';
 
@@ -14,7 +15,7 @@ Widget customTextNextToTextButton({
         Text(
           text,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 15,
+                fontSize: 15.sp,
               ),
         ),
         CustomTextButton(
@@ -22,7 +23,7 @@ Widget customTextNextToTextButton({
             onPressed?.call();
           },
           text: textButton,
-          fontSize: 15,
+          fontSize: 15.sp,
         ),
       ],
     );

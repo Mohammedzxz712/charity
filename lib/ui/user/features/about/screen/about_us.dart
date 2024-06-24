@@ -3,6 +3,7 @@ import 'package:charity/core/helpers/exetinsions.dart';
 import 'package:charity/core/helpers/spacing.dart';
 import 'package:charity/ui/user/features/about/components/donate_bottom.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/routes/routes.dart';
 import '../../home/component/drawer.dart';
 import '../components/action_appBar.dart';
@@ -66,7 +67,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
               children: [
                 const WelcomeAndImageAndTextAndDivider(),
                 const SocialRow(),
-                verticalSpace(20),
+                verticalSpace(20.h),
                 const DonateBottom(),
               ],
             ),

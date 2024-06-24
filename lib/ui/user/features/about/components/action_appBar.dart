@@ -1,5 +1,6 @@
 import 'package:charity/core/helpers/exetinsions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../config/routes/routes.dart';
 import '../../../../../core/helpers/spacing.dart';
@@ -16,12 +17,12 @@ class ActionAppBar extends StatelessWidget {
       child: Row(
         children: [
           const Text('MOHAMMED', style: TextStyle(color: Colors.white)),
-          horizontalSpace(5),
+          horizontalSpace(5.w),
           const Icon(
             Icons.person_pin,
             color: Colors.white,
           ),
-          horizontalSpace(5),
+          horizontalSpace(5.w),
         ],
       ),
     );

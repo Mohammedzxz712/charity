@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InfoRow extends StatelessWidget {
   final IconData icon;
@@ -20,13 +21,13 @@ class InfoRow extends StatelessWidget {
           color: Colors.black,
           size: 24.0,
         ),
-        SizedBox(width: 8.0),
+        SizedBox(width: 8.0.w),
         Expanded(
           child: Text(
             text,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16.0,
+              fontSize: 16.0.sp,
             ),
             textAlign: TextAlign.right,
           ),

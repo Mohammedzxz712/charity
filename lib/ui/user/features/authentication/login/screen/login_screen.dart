@@ -83,19 +83,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               textPartOne: AppLocalizations.of(context)!.log,
                               textPartTwo: AppLocalizations.of(context)!.ins,
                             ),
-                            verticalSpace(40),
+                            verticalSpace(40.h),
                             Align(
                                 alignment: Alignment.topRight,
                                 child:
                                     Text(AppLocalizations.of(context)!.email)),
-                            verticalSpace(10),
+                            verticalSpace(10.h),
                             AppTextFormField(
                               hintText: 'example@gmail.com',
                               keyboardType: TextInputType.emailAddress,
                               controller:
                                   context.read<LoginCubit>().emailController,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 13, horizontal: 15),
+                              contentPadding:  EdgeInsets.symmetric(
+                                  vertical: 13.h, horizontal: 15.w),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return AppLocalizations.of(context)!
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               },
                             ),
-                            verticalSpace(10),
+                            verticalSpace(10.h),
                             Align(
                                 alignment: Alignment.topRight,
                                 child: Text(
@@ -132,8 +132,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               isObscureText: isObscureText,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 13, horizontal: 15),
+                              contentPadding:  EdgeInsets.symmetric(
+                                  vertical: 13.h, horizontal: 15.w),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return AppLocalizations.of(context)!
@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               },
                             ),
-                            verticalSpace(6),
+                            verticalSpace(6.h),
                             Row(children: [
                               const Spacer(),
                               TextButton(
@@ -193,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             customTextNextToTextButton(
                               context: context,
-                              text: AppLocalizations.of(context)!.createacoount,
+                              text: AppLocalizations.of(context)!.createaccount,
                               textButton: AppLocalizations.of(context)!.signup,
                               onPressed: () {
                                 context.pushNamed(AppRoutes.signup);
