@@ -37,7 +37,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     });
   }
 
-  int? userId;
   void userRegister({
     required String email,
     required String password,
@@ -59,6 +58,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       CacheHelper.saveData(key: 'id', value: value?.data['id']);
 
       ApiConstant.token = CacheHelper.getBool(key: 'token');
+      ApiConstant.id = CacheHelper.getBool(key: 'id');
       print(ApiConstant.token);
       print(ApiConstant.id);
 

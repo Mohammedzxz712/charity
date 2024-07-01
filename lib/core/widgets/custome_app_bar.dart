@@ -18,7 +18,7 @@ class CustomMainAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<CustomMainAppBar> createState() => _CustomMainAppBarState();
 
   @override
-  Size get preferredSize =>  Size.fromHeight(56.0.h);
+  Size get preferredSize => Size.fromHeight(56.0.h);
 }
 
 class _CustomMainAppBarState extends State<CustomMainAppBar>
@@ -52,7 +52,7 @@ class _CustomMainAppBarState extends State<CustomMainAppBar>
           onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
           child: const Row(
             children: [
-              Text('MOHAMMED', style: TextStyle(color: Colors.white)),
+              Text('..Mohammed Ali', style: TextStyle(color: Colors.white)),
               Gap(5),
               Icon(
                 Icons.person_pin,

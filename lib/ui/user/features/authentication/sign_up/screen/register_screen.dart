@@ -15,7 +15,6 @@ class RegisterScreen extends StatelessWidget {
     return BlocConsumer<SignUpCubit, SignUpState>(
       listener: (context, state) {},
       builder: (context, state) {
-        GetCurrentLocation().getCurrentAddress();
         return RegisterScreenBody();
       },
     );

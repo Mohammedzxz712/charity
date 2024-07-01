@@ -1,6 +1,8 @@
 import 'package:charity/ui/user/features/categories/logic/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/widgets/custome_app_bar.dart';
+import '../../../../../core/widgets/progress_indector.dart';
 import '../components/category_item.dart';
 import '../components/header_of_screen.dart';
 import '../data/model/category_item_model.dart';
@@ -18,10 +20,22 @@ class OrganizationMethod extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is OrganizationCategoriesLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Scaffold(
+              body: Center(
+                child: CustomLoadingIndicator(),
+              ),
+            );
           } else if (state is CategoriesSuccessState) {
             final categoriesList =
                 context.read<CategoriesCubit>().categoriesList;
+
+            if (categoriesList == null) {
+              return const Scaffold(
+                body: Center(
+                  child: CustomLoadingIndicator(),
+                ),
+              );
+            }
             return SafeArea(
               child: Scaffold(
                 appBar: AppBar(),

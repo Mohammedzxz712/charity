@@ -94,38 +94,71 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     });
   }
 
-  void submitFood(
-    int user_id,
-    int organization_id,
-    int category_id,
-    String donation_type,
-    String image,
-  ) {
+  void submitFood({
+    required int user_id,
+    required int organization_id,
+    required int category_id,
+    required String donation_type,
+    String? image,
+    String? description,
+    String? any_diseases_else,
+    int? are_you_donate_before_three_month,
+    String? gender,
+    String? amount,
+    String? blood_type,
+  }) {
+    // Emit loading state
     emit(OrganizationCategoriesLoading());
 
-    DioHelper.getData(
+    // Prepare the data to be sent in the API request
+    final data = {
+      'user_id': user_id,
+      'organization_id': organization_id,
+      'category_id': category_id,
+      'donation_type': donation_type,
+      'any_diseases_else': any_diseases_else,
+      'are_you_donate_before_three_month': are_you_donate_before_three_month,
+      'description': description,
+      'amount': amount,
+      'blood_type': blood_type,
+      'gender': gender,
+      'image': image,
+    };
+
+    // Make the API call using DioHelper
+    DioHelper.postData(
       url: ApiConstant.donation,
-      token: ApiConstant.token,
+      data: data,
+      token: ApiConstant.token ?? '',
     ).then((value) {
+      // Check if the response data is not null
       if (value?.data != null) {
         print('Response data: ${value?.data}');
         try {
+          // Parse the response data into a list of Categories objects
           List<dynamic> data = value?.data;
           categoriesList =
               data.map((json) => Categories.fromJson(json)).toList();
+
+          // Log the descriptions of the categories
           print(
               categoriesList?.map((category) => category.description).toList());
+
+          // Emit success state with the list of categories
           emit(CategoriesSuccessState(categoriesList!));
         } catch (e) {
+          // Log the parsing error and emit error state
           print('Parsing error: $e');
           emit(
               OrganizationCategoriesError("Failed to parse organization data"));
         }
       } else {
+        // Log the absence of data and emit error state
         print('No data available');
         emit(OrganizationCategoriesError("Failed to load organization data"));
       }
     }).catchError((error) {
+      // Log the error and emit error state
       print('Error: $error');
       emit(OrganizationCategoriesError(error.toString()));
     });

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../config/routes/routes.dart';
 import '../../../../../../core/helpers/spacing.dart';
+import '../../../../../../core/methods/get_current_location.dart';
 import '../../../../../../core/widgets/app_text_bottom.dart';
 import '../../../../../../core/widgets/app_text_form_field.dart';
 import '../../../../../../core/widgets/fun_toast.dart';
@@ -94,7 +95,7 @@ class CompleteSignUp extends StatelessWidget {
                           hintText: '01000000000',
                           controller: cubit.phoneController,
                           keyboardType: TextInputType.phone,
-                          contentPadding:  EdgeInsets.symmetric(
+                          contentPadding: EdgeInsets.symmetric(
                               vertical: 13.h, horizontal: 15.w),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -115,11 +116,15 @@ class CompleteSignUp extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           controller: cubit.locationController,
                           suffixIcon: GestureDetector(
-                            onTap: () {},
+                            onTap: () async {
+                              cubit.locationController.text =
+                                  await GetCurrentLocation()
+                                      .getCurrentAddress();
+                            },
                             child: const Icon(Icons.location_on_outlined,
                                 size: 25),
                           ),
-                          contentPadding:  EdgeInsets.symmetric(
+                          contentPadding: EdgeInsets.symmetric(
                               vertical: 13.h, horizontal: 15.w),
                           validator: (value) {
                             if (value!.isEmpty) {

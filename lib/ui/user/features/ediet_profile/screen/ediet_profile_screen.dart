@@ -26,10 +26,12 @@ class ProfileScreen extends StatelessWidget {
         }
 
         return ConditionalBuilder(
-          condition: state is GetSuccessState && cubit.GetProfileModel != null ||
-              state is CameraSuccessState ||
-              state is UpdateUserDataSuccessState,
-          fallback: (context) => const Center(child: CustomLoadingIndicator()),
+          condition:
+              state is GetSuccessState && cubit.GetProfileModel != null ||
+                  state is CameraSuccessState ||
+                  state is UpdateUserDataSuccessState,
+          fallback: (context) =>
+              const Scaffold(body: Center(child: CustomLoadingIndicator())),
           builder: (context) => Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black,

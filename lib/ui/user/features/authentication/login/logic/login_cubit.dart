@@ -43,8 +43,9 @@ class LoginCubit extends Cubit<LoginState> {
         );
       }
       ApiConstant.token = 'Bearer ${loginModel?.token}';
-
+      ApiConstant.id = value?.data['id'];
       print(ApiConstant.token);
+      print(ApiConstant.id);
       print(CacheHelper.getBool(key: 'token'));
       emit(LoginSuccessState());
     }).catchError((error) {

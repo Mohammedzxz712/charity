@@ -16,7 +16,7 @@ class ActionAppBar extends StatelessWidget {
       onTap: () => context.pushNamed(AppRoutes.profile),
       child: Row(
         children: [
-          const Text('MOHAMMED', style: TextStyle(color: Colors.white)),
+          const Text('..Mohammed Ali', style: TextStyle(color: Colors.white)),
           horizontalSpace(5.w),
           const Icon(
             Icons.person_pin,

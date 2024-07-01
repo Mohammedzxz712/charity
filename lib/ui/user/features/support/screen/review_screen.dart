@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:charity/core/widgets/progress_indector.dart';
 import 'package:charity/ui/user/features/support/logic/support_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,9 +20,11 @@ class ReviewsScreen extends StatelessWidget {
       child: BlocConsumer<SupportCubit, SupportState>(
         listener: (context, state) {},
         builder: (context, state) {
-          if (state is ReviewLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
+          if (state is ReviewLoadingState || state is SupportLoadingState) {
+            return Scaffold(
+              body: const Center(
+                child: CustomLoadingIndicator(),
+              ),
             );
           } else if (state is GetReviewsSuccessState) {
             final reviews = context.read<SupportCubit>().reviewList;
@@ -54,7 +57,7 @@ class ReviewsScreen extends StatelessWidget {
       return const SizedBox(); // Return an empty widget if review is null
     }
     return Card(
-      margin:  EdgeInsets.symmetric(vertical: 8.0.h),
+      margin: EdgeInsets.symmetric(vertical: 8.0.h),
       child: ListTile(
         leading: CircleAvatar(
           backgroundImage: review.user_image != null
@@ -70,7 +73,7 @@ class ReviewsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(review.text ?? ''),
-             SizedBox(height: 8.h),
+            SizedBox(height: 8.h),
             Row(
               children: [
                 const Spacer(),
